@@ -86,7 +86,7 @@
 </div>
     </header>
     <div id="container">
-      <div id="main" class="post moveMain" itemscope itemprop="blogPost">
+      <div id="main" class="post" itemscope itemprop="blogPost">
   
 	<article itemprop="articleBody"> 
 		<header class="article-info clearfix">
@@ -222,20 +222,16 @@ var y = <span class="string">'"'</span>+escapeJavascript(<span class="variable">
 
 
 </div>  
-      
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
-
-
-<div class="openaside" style="display:block;"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-  <div id="toc" class="toc-aside" style="display:block;">
+  <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS的定义"><span class="toc-number">1.</span> <span class="toc-text">XSS的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防御"><span class="toc-number">2.</span> <span class="toc-text">防御</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HttpOnly（有助于缓解XSS攻击）"><span class="toc-number">2.0.1.</span> <span class="toc-text">HttpOnly（有助于缓解XSS攻击）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#输入检查（没有结合语境，不够智能）"><span class="toc-number">2.0.2.</span> <span class="toc-text">输入检查（没有结合语境，不够智能）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#输出检查"><span class="toc-number">2.0.3.</span> <span class="toc-text">输出检查</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正确地防御XSS"><span class="toc-number">3.</span> <span class="toc-text">正确地防御XSS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#在HTML标签中输出"><span class="toc-number">3.0.1.</span> <span class="toc-text">在HTML标签中输出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在HTML属性中输出"><span class="toc-number">3.0.2.</span> <span class="toc-text">在HTML属性中输出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在_script_标签中输出"><span class="toc-number">3.0.3.</span> <span class="toc-text">在 script 标签中输出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在事件中输出"><span class="toc-number">3.0.4.</span> <span class="toc-text">在事件中输出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在地址中输出"><span class="toc-number">3.0.5.</span> <span class="toc-text">在地址中输出</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
-<div id="asidepart" style="display:none;">
+<div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
@@ -262,7 +258,6 @@ var y = <span class="string">'"'</span>+escapeJavascript(<span class="variable">
 
 </aside>
 </div>
-
     </div>
     <footer><div id="footer" >
 	
