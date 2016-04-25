@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://qq2867234.github.io/"/>
-  <updated>2016-04-25T11:59:51.580Z</updated>
+  <updated>2016-04-25T16:31:33.169Z</updated>
   <id>http://qq2867234.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://qq2867234.github.io/2016/04/24/create-high-performance-index/"/>
     <id>http://qq2867234.github.io/2016/04/24/create-high-performance-index/</id>
     <published>2016-04-24T10:07:17.000Z</published>
-    <updated>2016-04-25T11:59:51.580Z</updated>
+    <updated>2016-04-25T16:31:33.169Z</updated>
     
     <content type="html">&lt;p&gt;索引是存储引擎用于&lt;strong&gt;高效获取数据&lt;/strong&gt;的一种&lt;strong&gt;数据结构&lt;/strong&gt;，索引其实就是一种数据结构。索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段。&lt;/p&gt;
 &lt;h2 id=&quot;索引基础&quot;&gt;索引基础&lt;/h2&gt;&lt;p&gt;要理解索引是如何工作，最简单的方法就是去看一本书的目录：如果想在一本书中找到特定的章节，我们不会去翻阅整本书来找出这个章节，这样效率很低，我们肯定会先看目录，找到对应的页码，然后直接翻到指定页码。&lt;/p&gt;
@@ -53,7 +53,7 @@
 &lt;p&gt;到这里应该可以明白，索引列的顺序是多么的重要，在优化性能的时候，可能需要使用相同的列但顺序不同的索引来满足不同类型的查询需求。&lt;/p&gt;
 &lt;p&gt;注：有些限制并不是B-Tree本身导致的，而是MySQL优化器和存储引擎使用索引的方式导致的，这部分限制有可能在未来的版本中不再是限制。&lt;/p&gt;
 &lt;h3 id=&quot;哈希索引&quot;&gt;哈希索引&lt;/h3&gt;&lt;p&gt;哈希索引基于哈希表实现，只有&lt;strong&gt;精确匹配&lt;/strong&gt;索引&lt;strong&gt;所有列&lt;/strong&gt;的查询才有效。对于每一行数据，存储引擎都会对所有的索引列计算一个哈希值，作为键存储在哈希表中，对应的值则是指向每个数据行的指针。如果计算出来的哈希值重复，则以链表的方式存放多个行指针。&lt;/p&gt;
-&lt;p&gt;哈希索引的数据结构简化如下：&lt;br&gt;|  key |     value     |&lt;br&gt;|——|—————|&lt;br&gt;| 2323 | 指向第1行的指针 |&lt;br&gt;| 2358 | 指向第4行的指针 |&lt;br&gt;| 7437 | 指向第2行的指针 |&lt;br&gt;| 8784 | 指向第3行的指针 |&lt;/p&gt;
+&lt;p&gt;哈希索引的数据结构简化如下：&lt;br&gt;   key  |      value&lt;br&gt;:——:|:—————:&lt;br&gt; 2323   | 指向第1行的指针&lt;br&gt; 2358   | 指向第4行的指针&lt;br&gt; 7437   | 指向第2行的指针&lt;br&gt; 8784   | 指向第3行的指针 &lt;/p&gt;
 &lt;p&gt;上表中的key是根据索引列的值计算得到的哈希值，value则是行指针。需要注意的是，每个key的编号是顺序的，但是数据行不是。&lt;/p&gt;
 &lt;p&gt;当MySQL判断一个查询能够使用哈希索引进行查询的时候，会先对索引列使用特定的哈希函数计算得到哈希值，然后再使用该值到哈希表中寻找对应的行指针（有可能多个，使用链表串连），最后比较行指针指向的数据行的值是否与查询的条件一致。&lt;/p&gt;
 &lt;p&gt;因为哈希索引只存储&lt;strong&gt;哈希值&lt;/strong&gt;和&lt;strong&gt;行指针&lt;/strong&gt;，所以索引的结构十分紧凑，查找的速度也非常快。&lt;/p&gt;

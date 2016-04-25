@@ -25,7 +25,7 @@ MySQL的存储引擎也是用类似的方法使用索引：先在索引">
 <meta property="og:image" content="http://7xtdiw.com1.z0.glb.clouddn.com/create-high-performance-index-2.png">
 <meta property="og:image" content="http://7xtdiw.com1.z0.glb.clouddn.com/create-high-performance-index-3.png">
 <meta property="og:image" content="http://7xtdiw.com2.z0.glb.clouddn.com/create-high-performance-index-4.png">
-<meta property="og:updated_time" content="2016-04-25T11:59:51.580Z">
+<meta property="og:updated_time" content="2016-04-25T16:31:33.169Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建高性能的索引">
 <meta name="twitter:description" content="索引是存储引擎用于高效获取数据的一种数据结构，索引其实就是一种数据结构。索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段。
@@ -134,7 +134,7 @@ MySQL的存储引擎也是用类似的方法使用索引：先在索引">
 <p>到这里应该可以明白，索引列的顺序是多么的重要，在优化性能的时候，可能需要使用相同的列但顺序不同的索引来满足不同类型的查询需求。</p>
 <p>注：有些限制并不是B-Tree本身导致的，而是MySQL优化器和存储引擎使用索引的方式导致的，这部分限制有可能在未来的版本中不再是限制。</p>
 <h3 id="哈希索引">哈希索引</h3><p>哈希索引基于哈希表实现，只有<strong>精确匹配</strong>索引<strong>所有列</strong>的查询才有效。对于每一行数据，存储引擎都会对所有的索引列计算一个哈希值，作为键存储在哈希表中，对应的值则是指向每个数据行的指针。如果计算出来的哈希值重复，则以链表的方式存放多个行指针。</p>
-<p>哈希索引的数据结构简化如下：<br>|  key |     value     |<br>|——|—————|<br>| 2323 | 指向第1行的指针 |<br>| 2358 | 指向第4行的指针 |<br>| 7437 | 指向第2行的指针 |<br>| 8784 | 指向第3行的指针 |</p>
+<p>哈希索引的数据结构简化如下：<br>   key  |      value<br>:——:|:—————:<br> 2323   | 指向第1行的指针<br> 2358   | 指向第4行的指针<br> 7437   | 指向第2行的指针<br> 8784   | 指向第3行的指针 </p>
 <p>上表中的key是根据索引列的值计算得到的哈希值，value则是行指针。需要注意的是，每个key的编号是顺序的，但是数据行不是。</p>
 <p>当MySQL判断一个查询能够使用哈希索引进行查询的时候，会先对索引列使用特定的哈希函数计算得到哈希值，然后再使用该值到哈希表中寻找对应的行指针（有可能多个，使用链表串连），最后比较行指针指向的数据行的值是否与查询的条件一致。</p>
 <p>因为哈希索引只存储<strong>哈希值</strong>和<strong>行指针</strong>，所以索引的结构十分紧凑，查找的速度也非常快。</p>
