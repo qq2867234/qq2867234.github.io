@@ -431,7 +431,6 @@ $(document).ready(function(){
     o.css('display', 'block').addClass('fadeIn');
     m.addClass('moveMain');
   });
-  c.click();
   o.click(function(){
     o.css('display', 'none').removeClass('beforeFadeIn');
     a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
@@ -443,7 +442,7 @@ $(document).ready(function(){
   
   $(window).resize(function(){
     getSize(); 
-    if (myWidth >= 1024) {
+    /*if (myWidth >= 1024) {
       $('header nav').removeClass('shownav');
     }else{
       m.removeClass('moveMain');
@@ -452,7 +451,7 @@ $(document).ready(function(){
       
       $('#toc.toc-aside').css('display', 'none');
         
-    }
+    }*/
   });
 });
 </script>
