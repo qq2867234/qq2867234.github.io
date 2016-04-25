@@ -9,9 +9,8 @@
     
     <meta name="author" content="漠北以北">
     
-    <meta name="description" content="创建高性能的索引[TOC]
-索引是存储引擎用于高效获取数据的一种数据结构，索引其实就是一种数据结构。索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段。
-索引基础要理解索引是如何工作，最简单的方法就是去看一本书的目录：如果想在一本书中找到特定的章节，我们不会去翻阅整本书来找出这个章节，">
+    <meta name="description" content="索引是存储引擎用于高效获取数据的一种数据结构，索引其实就是一种数据结构。索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段。
+索引基础要理解索引是如何工作，最简单的方法就是去看一本书的目录：如果想在一本书中找到特定的章节，我们不会去翻阅整本书来找出这个章节，这样效率很低，我们肯定会先看">
     
     
     
@@ -71,7 +70,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/04/24/创建高性能的索引/" title="创建高性能的索引" itemprop="url">创建高性能的索引</a>
+      <a href="/2016/04/24/create-high-performance-index/" title="创建高性能的索引" itemprop="url">创建高性能的索引</a>
   </h1>
   <p class="article-author">By
     
@@ -79,7 +78,7 @@
     </p>
   <p class="article-time">
     <time datetime="2016-04-24T10:07:17.000Z" itemprop="datePublished">2016-04-24</time>
-    更新日期:<time datetime="2016-04-25T10:08:17.166Z" itemprop="dateModified">2016-04-25</time>
+    更新日期:<time datetime="2016-04-25T11:59:51.580Z" itemprop="dateModified">2016-04-25</time>
     
   </p>
 </header>
@@ -88,11 +87,10 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#创建高性能的索引"><span class="toc-number">1.</span> <span class="toc-text">创建高性能的索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#索引基础"><span class="toc-number">1.1.</span> <span class="toc-text">索引基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引的类型"><span class="toc-number">1.2.</span> <span class="toc-text">索引的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Tree索引"><span class="toc-number">1.2.1.</span> <span class="toc-text">B-Tree索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#哈希索引"><span class="toc-number">1.2.2.</span> <span class="toc-text">哈希索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空间数据索引"><span class="toc-number">1.2.3.</span> <span class="toc-text">空间数据索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全文索引"><span class="toc-number">1.2.4.</span> <span class="toc-text">全文索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引是最好的解决方案吗"><span class="toc-number">1.3.</span> <span class="toc-text">索引是最好的解决方案吗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高性能的索引策略"><span class="toc-number">1.4.</span> <span class="toc-text">高性能的索引策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#独立的列"><span class="toc-number">1.4.1.</span> <span class="toc-text">独立的列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前缀索引和索引选择性"><span class="toc-number">1.4.2.</span> <span class="toc-text">前缀索引和索引选择性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多列索引"><span class="toc-number">1.4.3.</span> <span class="toc-text">多列索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择合适的索引列顺序"><span class="toc-number">1.4.4.</span> <span class="toc-text">选择合适的索引列顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚簇索引"><span class="toc-number">1.4.5.</span> <span class="toc-text">聚簇索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#*覆盖索引"><span class="toc-number">1.4.6.</span> <span class="toc-text">*覆盖索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#*使用索引扫描来做排序"><span class="toc-number">1.4.7.</span> <span class="toc-text">*使用索引扫描来做排序</span></a></li></ol></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#索引基础"><span class="toc-number">1.</span> <span class="toc-text">索引基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引的类型"><span class="toc-number">2.</span> <span class="toc-text">索引的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Tree索引"><span class="toc-number">2.1.</span> <span class="toc-text">B-Tree索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#哈希索引"><span class="toc-number">2.2.</span> <span class="toc-text">哈希索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空间数据索引"><span class="toc-number">2.3.</span> <span class="toc-text">空间数据索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全文索引"><span class="toc-number">2.4.</span> <span class="toc-text">全文索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引是最好的解决方案吗"><span class="toc-number">3.</span> <span class="toc-text">索引是最好的解决方案吗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高性能的索引策略"><span class="toc-number">4.</span> <span class="toc-text">高性能的索引策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#独立的列"><span class="toc-number">4.1.</span> <span class="toc-text">独立的列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前缀索引和索引选择性"><span class="toc-number">4.2.</span> <span class="toc-text">前缀索引和索引选择性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多列索引"><span class="toc-number">4.3.</span> <span class="toc-text">多列索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择合适的索引列顺序"><span class="toc-number">4.4.</span> <span class="toc-text">选择合适的索引列顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚簇索引"><span class="toc-number">4.5.</span> <span class="toc-text">聚簇索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#*覆盖索引"><span class="toc-number">4.6.</span> <span class="toc-text">*覆盖索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#*使用索引扫描来做排序"><span class="toc-number">4.7.</span> <span class="toc-text">*使用索引扫描来做排序</span></a></li></ol></li></ol>
 		</div>
 		
-		<h1 id="创建高性能的索引">创建高性能的索引</h1><p>[TOC]</p>
-<p>索引是存储引擎用于<strong>高效获取数据</strong>的一种<strong>数据结构</strong>，索引其实就是一种数据结构。索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段。</p>
+		<p>索引是存储引擎用于<strong>高效获取数据</strong>的一种<strong>数据结构</strong>，索引其实就是一种数据结构。索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段。</p>
 <h2 id="索引基础">索引基础</h2><p>要理解索引是如何工作，最简单的方法就是去看一本书的目录：如果想在一本书中找到特定的章节，我们不会去翻阅整本书来找出这个章节，这样效率很低，我们肯定会先看目录，找到对应的页码，然后直接翻到指定页码。</p>
 <p>MySQL的存储引擎也是用类似的方法使用索引：先在索引中找到对应的值，然后根据匹配的索引记录找到对应的数据行。</p>
 <p>索引可以包含一个或多个列。MySQL只能高效的使用索引的<strong>最左前缀列</strong>，所以当索引包含多个列的时候，列的顺序十分重要。</p>
@@ -102,7 +100,7 @@
 <p>虽然是使用B-Tree，但是不同的存储引擎可能会使用一些变种的算法，比如InnoDB使用的是B+Tree，即使它的索引名字是BTREE。</p>
 <p>另外，不同的存储引擎，也会以不同的方式使用B-Tree索引，性能也各有不同。比如，InnoDB按原数据格式存储，而MyISAM则使用前缀压缩技术来使得索引更小。再如InnoDB根据<strong>主键</strong>引用被索引的数据行，而MyISAM通过数据的<strong>物理位置</strong>引用被索引的数据行。</p>
 <p>B-Tree索引中所有的值都是按顺序存储的，并且每一个叶子节点到根的距离都相同。</p>
-<p>下图是B-Tree索引的抽象表示，大致反映了InnoDB索引是如何工作的。<br><img src="./1461500302623.png" alt="建立在B+Tree结构上的索引"></p>
+<p>下图是B-Tree索引的抽象表示，大致反映了InnoDB索引是如何工作的。<br><img src="http://7xtdiw.com1.z0.glb.clouddn.com/1.png" alt="建立在B+Tree结构上的索引"></p>
 <p>如上图所示，在B树中，以逻辑页的方式组织数据，每个<strong>非叶子页</strong>包含n个key和n+1个指针（key与指针相互间隔），分别保存着<strong>索引列的值</strong>和<strong>指向子页的指针</strong>，这些指针所指向的子页，其内部包含的所有的key值都界于指针左右的两个key值之间。<strong>叶子页</strong>比较特殊，它包含n个key和1个指针，与非叶子页不同的是，叶子页中的key不仅仅保存索引列的值，<strong>还保存了主键值</strong>（MyISAM引擎保存的是行的物理位置），用来获取完整的数据行，指针则是<strong>指向下一个叶子页</strong>（注：这是带有顺序访问指针的B+Tree），这个指针是用来提高范围查询的性能，有了这个指针，当进行范围查询的时候，只要在B树中查到范围区间内的最小值，然后顺着叶子页的指针向后遍历，就可以一次访问到区间内的所有数据，极大的提高了范围查询效率。</p>
 <blockquote>
 <p>逻辑页是计算机管理存储器的逻辑块，操作系统将内存和磁盘分割为连续的大小相等的块，这里的每个块称为一个逻辑页（在许多操作系统中，页的大小通常为4K，对于InnoDB引擎则为16K），内存和磁盘以页为单位交换数据。</p>
@@ -110,8 +108,8 @@
 <p>有了B-Tree索引，进行查询的时候就不再需要进行全表扫描，而是从索引的根节点开始向下搜索，通过比较<strong>要查找的值</strong>和<strong>节点页中的key值</strong>就可以找到合适的指针进入下层子节点，这些指向子节点的指针实际上定义了子节点内值的上限和下限。最终存储引擎要么找到对应的值，要么记录不存在。</p>
 <p>B-Tree对索引列是顺序组织存储的，所以很适合查找范围数据。</p>
 <p>举个更直观的例子，假设有如下表：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE People (&#10;&#9;last_name   varchar(50)    not null,&#10;&#9;first_name  varchar(50)    not null,&#10;&#9;dob         date           not null,&#10;&#9;gender      enum(&#39;m&#39;, &#39;f&#39;) not null,&#10;&#9;key(last_name, first_name, dob)&#10;   );</span><br></pre></td></tr></table></figure>
-<p>在表中，添加了联合索引(last_name, first_name, dob)之后，对于表中的每一行数据，在索引中都保存了索引列的值(last_name, first_name, dob)，该索引的数据存储方式如下图所示：<br><img src="./1461500611993.png" alt="B+Tree索引数中的部分条目示例"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE People (&#10;&#9;last_name   varchar(50)    not null,&#10;&#9;first_name  varchar(50)    not null,&#10;&#9;dob         date           not null,&#10;&#9;gender      enum(&#39;m&#39;, &#39;f&#39;) not null,&#10;&#9;key(last_name, first_name, dob)&#10;);</span><br></pre></td></tr></table></figure>
+<p>在表中，添加了联合索引(last_name, first_name, dob)之后，对于表中的每一行数据，在索引中都保存了索引列的值(last_name, first_name, dob)，该索引的数据存储方式如下图所示：<br><img src="http://7xtdiw.com1.z0.glb.clouddn.com/create-high-performance-index-2.png" alt="B+Tree索引数中的部分条目示例"></p>
 <p>在图中可以看到，每个页中的值对应的是我们定义的3个索引列的值（last_name, first_name, dob），需要注意的是，索引对多个列进行排序的依据是定义索引时的顺序。（注：在图中，叶子页实际上还保存了主键值，只是在图中没有体现出来）</p>
 <p><strong>可以使用B-Tree索引的查询类型</strong><br>全键值匹配、索引第一列全值匹配、索引第一列前缀匹配、索引第一列范围匹配、前N列全匹配并范围匹配第N+1列、只访问索引的查询（覆盖索引）。<br>简单来说就是一个原则，必须从索引的最左列开始匹配。</p>
 <p><strong>关于B-Tree索引的限制</strong></p>
@@ -161,20 +159,20 @@
 <ol>
 <li>统计最常见的值的数量，然后再统计最常见的前缀的数量，让二者的数量接近。</li>
 </ol>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#20808;&#32479;&#35745;&#26368;&#24120;&#35265;&#20540;&#30340;&#25968;&#37327;&#65306;&#10;&#9;select col, count(*) as cnt &#10;&#9;from table group by col order by cnt desc limit 10;&#10;&#20877;&#32479;&#35745;&#26368;&#24120;&#35265;&#30340;&#21069;&#32512;&#30340;&#25968;&#37327;&#65292;&#21069;&#32512;&#38271;&#24230;&#20026;length&#10;&#9;select left(col, length) as pref, count(*) as cnt &#10;&#9;from table group by pref order by cnt desc limit 10;&#10;&#28982;&#21518;&#22686;&#21152;&#21069;&#32512;&#38271;&#24230;&#65292;&#30452;&#21040;&#20197;&#19978;&#20004;&#26465;SQL&#32479;&#35745;&#20986;&#26469;&#30340;&#32467;&#26524;&#25509;&#36817;&#65292;&#25509;&#36817;&#21518;&#30340;length&#21363;&#20026;&#21512;&#36866;&#30340;&#21069;&#32512;&#38271;&#24230;&#12290;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#20808;&#32479;&#35745;&#26368;&#24120;&#35265;&#20540;&#30340;&#25968;&#37327;&#65306;&#10;&#9;select col, count(*) as cnt &#10;&#9;from table group by col order by cnt desc limit 10;&#10;&#20877;&#32479;&#35745;&#26368;&#24120;&#35265;&#30340;&#21069;&#32512;&#30340;&#25968;&#37327;&#65292;&#21069;&#32512;&#38271;&#24230;&#20026;length&#10;&#9;select left(col, length) as pref, count(*) as cnt &#10;&#9;from table group by pref order by cnt desc limit 10;&#10;&#28982;&#21518;&#22686;&#21152;&#21069;&#32512;&#38271;&#24230;&#65292;&#30452;&#21040;&#20197;&#19978;&#20004;&#26465;SQL&#32479;&#35745;&#20986;&#26469;&#30340;&#32467;&#26524;&#25509;&#36817;&#65292;&#25509;&#36817;&#21518;&#30340;length&#21363;&#20026;&#21512;&#36866;&#30340;&#21069;&#32512;&#38271;&#24230;&#12290;</span><br></pre></td></tr></table></figure>
 <ol>
-<li>计算完整列的选择性和前缀的选择性，让二者接近。<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#20808;&#35745;&#31639;&#23436;&#25972;&#21015;&#30340;&#36873;&#25321;&#24615;&#65306;&#10;&#9;select count(distinct col)/count(*) from table;&#10;&#20877;&#35745;&#31639;&#19981;&#21516;&#21069;&#32512;&#38271;&#24230;&#30340;&#36873;&#25321;&#24615;&#65306;&#10;&#9;select count(distinct left(col, 3))/count(*) as sel3,&#10;&#9;&#9;count(distinct left(col, 4))/count(*) as sel4,&#10;&#9;&#9;count(distinct left(col, 5))/count(*) as sel5,&#10;&#9;&#9;count(distinct left(col, 6))/count(*) as sel6,&#10;&#9;&#9;count(distinct left(col, 7))/count(*) as sel7 &#10;&#9;from table;&#10;&#26368;&#21518;&#36873;&#25321;&#19968;&#20010;&#36873;&#25321;&#24615;&#25509;&#36817;&#30340;&#21069;&#32512;&#38271;&#24230;&#21363;&#21487;&#12290;</span><br></pre></td></tr></table></figure>
+<li>计算完整列的选择性和前缀的选择性，让二者接近。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#20808;&#35745;&#31639;&#23436;&#25972;&#21015;&#30340;&#36873;&#25321;&#24615;&#65306;&#10;&#9;select count(distinct col)/count(*) from table;&#10;&#20877;&#35745;&#31639;&#19981;&#21516;&#21069;&#32512;&#38271;&#24230;&#30340;&#36873;&#25321;&#24615;&#65306;&#10;&#9;select count(distinct left(col, 3))/count(*) as sel3,&#10;&#9;&#9;count(distinct left(col, 4))/count(*) as sel4,&#10;&#9;&#9;count(distinct left(col, 5))/count(*) as sel5,&#10;&#9;&#9;count(distinct left(col, 6))/count(*) as sel6,&#10;&#9;&#9;count(distinct left(col, 7))/count(*) as sel7 &#10;&#9;from table;&#10;&#26368;&#21518;&#36873;&#25321;&#19968;&#20010;&#36873;&#25321;&#24615;&#25509;&#36817;&#30340;&#21069;&#32512;&#38271;&#24230;&#21363;&#21487;&#12290;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>找到了合适的前缀长度后，就可以通过下面的SQL来<strong>创建前缀索引</strong>了：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#22312;col&#21015;&#19978;&#21019;&#24314;&#38271;&#24230;&#20026;7&#30340;&#21069;&#32512;&#32034;&#24341;&#10;alter table table_name add key(col(7));</span><br></pre></td></tr></table></figure></p>
+<p>找到了合适的前缀长度后，就可以通过下面的SQL来<strong>创建前缀索引</strong>了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-- &#22312;col&#21015;&#19978;&#21019;&#24314;&#38271;&#24230;&#20026;7&#30340;&#21069;&#32512;&#32034;&#24341;&#10;alter table table_name add key(col(7));</span><br></pre></td></tr></table></figure></p>
 <p>另一方面，前缀索引也有其<strong>缺陷</strong>：无法使用前缀索引做order by和group by，也无法做覆盖索引。</p>
 <p><strong>使用前缀索引的常见场景</strong>：针对很长的十六进制唯一ID使用前缀索引。比如使用MySQL来存储网站的sessionid的时候，需要在一个很长的十六进制字符串上创建索引，这时候如果采用长度为8的前缀索引通常能显著的提升性能。</p>
 <p>注：MySQL不支持后缀索引，但是可以把字符反转后存储，并基于此建立前缀索引。</p>
 <h3 id="多列索引">多列索引</h3><p>多列索引包括：多个单列索引和联合索引。</p>
 <p>很多人对多列索引的理解不够，常见的错误是：为每个列创建独立的索引，或者按照错误的顺序创建多列索引。</p>
 <p>实际上，创建多个单列索引大部分情况下并不能提高查询性能。MySQL5.0以后的版本引入了一种叫“索引合并“策略，一定程度上可以使用表上的多个单列索引来定位指定的行，但是之前的版本只能使用其中某一个单列索引，这种情况下没有哪一个单列索引是非常有效的。</p>
-<p>对于下面的SQL：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id1, id2 from table where id1 = 1 or id2 = 1;</span><br></pre></td></tr></table></figure></p>
-<p>在老的MySQL版本中，不论创建什么索引，对这个查询都会使用全表扫描。<br>除非将OR条件改为UNION ALL的方式，然后分别对id1和id2建立单列索引：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;select id1, id2 from table where id1 = 1&#10;union all&#10;select id1, id2 from table where id2 = 1 and id1 &#60;&#62; 1</span><br></pre></td></tr></table></figure></p>
+<p>对于下面的SQL：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id1, id2 from table where id1 = 1 or id2 = 1;</span><br></pre></td></tr></table></figure></p>
+<p>在老的MySQL版本中，不论创建什么索引，对这个查询都会使用全表扫描。<br>除非将OR条件改为UNION ALL的方式，然后分别对id1和id2建立单列索引：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id1, id2 from table where id1 = 1&#10;union all&#10;select id1, id2 from table where id2 = 1 and id1 &#60;&#62; 1</span><br></pre></td></tr></table></figure></p>
 <p>但是在MySQL5.0以后的版本，查询能够同时使用这两个单列索引进行查询，然后将结果合并。</p>
 <p>虽然有了新的版本有了索引合并策略，但这是一种优化的结果，实际上更多时候，这也说明了表上的索引建得很糟糕。下面是一些经验：</p>
 <ul>
@@ -185,14 +183,14 @@
 <p>有一个经验法则：<strong>将选择性最高的列放到索引最前列</strong>。</p>
 <p>这个经验在不需要考虑排序和分组时很有用，因为这时候索引的作用只是用来优化where条件的查询。但是在需要考虑排序和分组时，<strong>避免随机IO和排序</strong>则更重要。</p>
 <p>另外，性能不只是依赖于索引列的选择性，也和查询条件的具体值有关，可能需要根据那些运行频率最高的查询来调整索引列的顺序，让这种情况下索引的选择性最高。</p>
-<p>以下面的查询为例：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from payment where staff_id = 2 and customer_id = 584;</span><br></pre></td></tr></table></figure></p>
-<p>是应该创建一个(staff_id, customer_id)索引还是应该颠倒一下顺序呢？可以分别计算列的选择性，然后将选择性高的作为索引列的第一列。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select count(distinct staff_id)/count(*) as staff_selectivity,&#10;&#9;count(distinct customer_id)/count(*) as customer_selectivity&#10;&#9;from payment \G&#10;&#9;************************* 1.row ************************&#9;&#10;&#9;&#9;staff_selectivity : 0.0001&#10;&#9;customer_selectivity  : 0.0373</span><br></pre></td></tr></table></figure></p>
+<p>以下面的查询为例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from payment where staff_id = 2 and customer_id = 584;</span><br></pre></td></tr></table></figure></p>
+<p>是应该创建一个(staff_id, customer_id)索引还是应该颠倒一下顺序呢？可以分别计算列的选择性，然后将选择性高的作为索引列的第一列。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select count(distinct staff_id)/count(*) as staff_selectivity,&#10;  count(distinct customer_id)/count(*) as customer_selectivity&#10;from payment \G&#10;************************* 1.row ************************&#9;&#10;&#9;&#9;staff_selectivity : 0.0001&#10;&#9;customer_selectivity  : 0.0373</span><br></pre></td></tr></table></figure></p>
 <p>customer_id的选择性更高，所以将其作为索引的第一列。</p>
 <p>需要注意的是，上面的方式在多数情况是有用的，但是不要假设平均情况下的性能能代表特殊情况下的性能，特殊情况可能会摧毁整个应用的性能。所以，特殊情况，需要特殊考虑。</p>
 <h3 id="聚簇索引">聚簇索引</h3><p>聚簇索引并不是一种索引类型，而是一种<strong>数据存储方式</strong>。</p>
 <p>InnoDB的聚簇索引实际上在同一个结构中保存了B-Tree索引和数据行。</p>
 <p>当表有聚簇索引时，它的数据行实际上存放在索引的叶子页中，因为无法将数据行存放在两个不同的地方，所以一个表只能有一个聚簇索引。</p>
-<p>聚簇索引中的记录存放方式，如下图所示：<br><img src="./1461570355129.png" alt="Alt text"><br>需要注意的是，叶子页保存了行的全部数据，节点页只保存了主键值。</p>
+<p>聚簇索引中的记录存放方式，如下图所示：<br><img src="http://7xtdiw.com1.z0.glb.clouddn.com/create-high-performance-index-3.png" alt="聚簇索引的数据分布"><br>需要注意的是，叶子页保存了行的全部数据，节点页只保存了主键值。</p>
 <p>MySQL无法选择哪个索引作为聚簇索引，对于InnoDB，默认使用主键作为聚簇索引，如果没有定义主键，会选择一个唯一的非空索引代替，如果没有这样的索引，则隐式定义一个主键来作为聚簇索引。</p>
 <p><strong>聚簇索引的优点：</strong></p>
 <ul>
@@ -215,29 +213,29 @@
 <li>由于InnoDB的二级索引在叶子节点中只保存了行的主键值，所以如果二级索引能够覆盖查询，则可以避免对主键索引的二次查询。</li>
 </ul>
 <p>由于覆盖索引必须要存储索引列的值，而除了B-Tree索引以外的其它索引类型都不存储索引列的值，所以MySQL只能使用B-Tree索引做覆盖索引。</p>
-<p>下面是一个SQL查询：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id, col from table</span><br></pre></td></tr></table></figure></p>
+<p>下面是一个SQL查询：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id, col from table;</span><br></pre></td></tr></table></figure></p>
 <p>如果我们在表中创建一个多列索引(id, col)，那么上面的查询就可以称为索引覆盖查询，因为要查询的列在索引中都可以直接获取到。</p>
-<p>下面举个例子来说明，如何使用覆盖索引来优化SQL语句。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from products where actor = &#39;sean carrey&#39; and title like &#39;%pollo%&#39;</span><br></pre></td></tr></table></figure></p>
+<p>下面举个例子来说明，如何使用覆盖索引来优化SQL语句。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from products where actor = &#39;sean carrey&#39; and title like &#39;%pollo%&#39;;</span><br></pre></td></tr></table></figure></p>
 <p>对于上面的SQL，创建多列索引(actor, title)，即使这样，索引也无法覆盖该查询，因为：</p>
 <ul>
 <li>查询从表中选择了所有列。</li>
 <li>不能在索引中使用以通配符开头的like查询。</li>
 </ul>
-<p>有办法可以解决上面说的两个问题，只需要重写并巧妙的设计索引。<br>先将索引扩展至覆盖三个数据列(actor, title, prod_id)，然后重写查询：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from products&#10;&#9;join (&#10;&#9;&#9;select prod_id from products where actor = &#39;Sean Carrey&#39; and title like &#39;%Apollo%&#39;&#10;&#9;) as t1 on (t1.prod_id = products.prod_id)</span><br></pre></td></tr></table></figure></p>
+<p>有办法可以解决上面说的两个问题，只需要重写并巧妙的设计索引。<br>先将索引扩展至覆盖三个数据列(actor, title, prod_id)，然后重写查询：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from products&#10;join (&#10;&#9;select prod_id from products where actor = &#39;Sean Carrey&#39; and title like &#39;%Apollo%&#39;&#10;) as t1 &#10;on (t1.prod_id = products.prod_id);</span><br></pre></td></tr></table></figure></p>
 <p>上面重写后的查询，在子查询中就可以使用覆盖索引，找到匹配的prod_id，再根据prod_id在外层查询匹配获取需要的所有列值。这种方式叫做<strong>延迟关联</strong>，因为延迟了对列的访问。<br>这样优化能提升效率的原因在于：巧妙的运用了覆盖索引，从而减少了需要读取的完整数据行。<br>这样<strong>优化的效果取决于where条件匹配返回的行数</strong>。<br>假设这个products表有100万行记录，我们来看一下上面两个查询在三个不同的数据集上的表现：</p>
 <ol>
 <li>第一个数据集：Sean Carrey出演了 <strong>30000</strong> 部作品，其中有 <strong>20000</strong> 部的标题中包含了Apollo。</li>
 <li>第二个数据集：Sean Carrey出演了 <strong>30000</strong> 部作品，其中有 <strong>40</strong> 部的标题中包含了Apollo。</li>
 <li>第三个数据集：Sean Carrey出演了 <strong>50</strong> 部作品，其中有 <strong>10</strong> 部的标题中包含了Apollo。</li>
 </ol>
-<p>使用上面三种数据集来测试两种不同的查询，结果如下：<br><img src="./1461576590405.png" alt="Alt text"></p>
+<p>使用上面三种数据集来测试两种不同的查询，结果如下：<br><img src="http://7xtdiw.com2.z0.glb.clouddn.com/create-high-performance-index-4.png" alt="测试结果"></p>
 <p>结果分析：</p>
 <ul>
 <li>示例1中，查询返回了一个很大的结果集，因此看不到优化后的效果。因为大部分时间都花在读取和发送数据上了。</li>
 <li>示例2中，经过覆盖索引的过滤，只返回了很少的结果集，优化的效果非常明显，主要得益于只需要读取40行完整数据行，而不是原来需要的30000行。</li>
 <li>示例3中，效率反而下降，因为索引过滤时符合第一个条件的结果集已经很小，所以子查询带来的成本反而比从表中直接提取完整行更高。</li>
 </ul>
-<p>这也是优化大分页的一种方法：使用延迟关联，并使用覆盖索引查询需要的主键，再根据主键关联原表来获得需要的行。这可以大大减少MySQL需要扫描的行数。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select &#60;cols&#62; from table inner join( &#10;&#9;select &#60;primary key cols&#62; from table limit 100000, 10&#10;&#9;) as t using(&#60;primary key cols&#62;)</span><br></pre></td></tr></table></figure></p>
+<p>这也是优化大分页的一种方法：使用延迟关联，并使用覆盖索引查询需要的主键，再根据主键关联原表来获得需要的行。这可以大大减少MySQL需要扫描的行数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select &#60;cols&#62; from table inner join( &#10;&#9;select &#60;primary key cols&#62; from table limit 100000, 10&#10;) as t using(&#60;primary key cols&#62;)</span><br></pre></td></tr></table></figure></p>
 <p>另外，可以进一步优化InnoDB，因为InnoDB的二级索引的叶子节点包含了主键的值，所以可以有效地利用这些主键列来覆盖查询。</p>
 <h3 id="*使用索引扫描来做排序">*使用索引扫描来做排序</h3><p>MySQL有两种方式可以生成有序的结果：</p>
 <ul>
@@ -268,20 +266,20 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/mysql-索引/">mysql, 索引</a>
+  <span></span> <a href="/tags/MySQL/">MySQL</a><a href="/tags/索引/">索引</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/mysql/">mysql</a>
+  <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://qq2867234.github.io/2016/04/24/创建高性能的索引/" data-title="创建高性能的索引 | 漠北以北" data-tsina="undefined" class="share clearfix">
+  <div data-url="http://qq2867234.github.io/2016/04/24/create-high-performance-index/" data-title="创建高性能的索引 | 漠北以北" data-tsina="undefined" class="share clearfix">
   </div>
 
 </div>
@@ -292,7 +290,7 @@
  
 
 <div class="next">
-<a href="/2015/11/09/XSS防御/"  title="XSS防御">
+<a href="/2015/11/09/XSS-defence/"  title="XSS防御">
  <strong>NEXT:</strong><br/> 
  <span>XSS防御
 </span>
@@ -302,12 +300,16 @@
 </nav>
 
 	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#创建高性能的索引"><span class="toc-number">1.</span> <span class="toc-text">创建高性能的索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#索引基础"><span class="toc-number">1.1.</span> <span class="toc-text">索引基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引的类型"><span class="toc-number">1.2.</span> <span class="toc-text">索引的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Tree索引"><span class="toc-number">1.2.1.</span> <span class="toc-text">B-Tree索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#哈希索引"><span class="toc-number">1.2.2.</span> <span class="toc-text">哈希索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空间数据索引"><span class="toc-number">1.2.3.</span> <span class="toc-text">空间数据索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全文索引"><span class="toc-number">1.2.4.</span> <span class="toc-text">全文索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引是最好的解决方案吗"><span class="toc-number">1.3.</span> <span class="toc-text">索引是最好的解决方案吗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高性能的索引策略"><span class="toc-number">1.4.</span> <span class="toc-text">高性能的索引策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#独立的列"><span class="toc-number">1.4.1.</span> <span class="toc-text">独立的列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前缀索引和索引选择性"><span class="toc-number">1.4.2.</span> <span class="toc-text">前缀索引和索引选择性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多列索引"><span class="toc-number">1.4.3.</span> <span class="toc-text">多列索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择合适的索引列顺序"><span class="toc-number">1.4.4.</span> <span class="toc-text">选择合适的索引列顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚簇索引"><span class="toc-number">1.4.5.</span> <span class="toc-text">聚簇索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#*覆盖索引"><span class="toc-number">1.4.6.</span> <span class="toc-text">*覆盖索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#*使用索引扫描来做排序"><span class="toc-number">1.4.7.</span> <span class="toc-text">*使用索引扫描来做排序</span></a></li></ol></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#索引基础"><span class="toc-number">1.</span> <span class="toc-text">索引基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引的类型"><span class="toc-number">2.</span> <span class="toc-text">索引的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#B-Tree索引"><span class="toc-number">2.1.</span> <span class="toc-text">B-Tree索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#哈希索引"><span class="toc-number">2.2.</span> <span class="toc-text">哈希索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空间数据索引"><span class="toc-number">2.3.</span> <span class="toc-text">空间数据索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全文索引"><span class="toc-number">2.4.</span> <span class="toc-text">全文索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引是最好的解决方案吗"><span class="toc-number">3.</span> <span class="toc-text">索引是最好的解决方案吗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高性能的索引策略"><span class="toc-number">4.</span> <span class="toc-text">高性能的索引策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#独立的列"><span class="toc-number">4.1.</span> <span class="toc-text">独立的列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前缀索引和索引选择性"><span class="toc-number">4.2.</span> <span class="toc-text">前缀索引和索引选择性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多列索引"><span class="toc-number">4.3.</span> <span class="toc-text">多列索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择合适的索引列顺序"><span class="toc-number">4.4.</span> <span class="toc-text">选择合适的索引列顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚簇索引"><span class="toc-number">4.5.</span> <span class="toc-text">聚簇索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#*覆盖索引"><span class="toc-number">4.6.</span> <span class="toc-text">*覆盖索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#*使用索引扫描来做排序"><span class="toc-number">4.7.</span> <span class="toc-text">*使用索引扫描来做排序</span></a></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
@@ -319,22 +321,7 @@
 	<p class="asidetitle">分类</p>
 		<ul>
 		
-			<li><a href="/categories/mysql/" title="mysql">mysql<sup>1</sup></a></li>
-		
-		</ul>
-</div>
-
-
-  
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			<li><a href="/tags/Web安全/" title="Web安全">Web安全<sup>1</sup></a></li>
-		
-			<li><a href="/tags/mysql-索引/" title="mysql, 索引">mysql, 索引<sup>1</sup></a></li>
-		
-			<li><a href="/tags/开始/" title="开始">开始<sup>1</sup></a></li>
+			<li><a href="/categories/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
 		
 		</ul>
 </div>
@@ -487,6 +474,18 @@ $(document).ready(function(){
 });     
 </script>
 
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"chenjiusheng"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
 
 
 
