@@ -16,16 +16,16 @@
 MySQL的存储引擎也是用类似的方法使用索引：先在索引">
 <meta property="og:type" content="article">
 <meta property="og:title" content="创建高性能的索引">
-<meta property="og:url" content="http://qq2867234.github.io/2016/04/24/create-high-performance-index/index.html">
+<meta property="og:url" content="http://qq2867234.github.io/2016/02/24/Create-high-performance-index/index.html">
 <meta property="og:site_name" content="漠北以北">
 <meta property="og:description" content="索引是存储引擎用于高效获取数据的一种数据结构，索引其实就是一种数据结构。索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段。
 索引基础要理解索引是如何工作，最简单的方法就是去看一本书的目录：如果想在一本书中找到特定的章节，我们不会去翻阅整本书来找出这个章节，这样效率很低，我们肯定会先看目录，找到对应的页码，然后直接翻到指定页码。
 MySQL的存储引擎也是用类似的方法使用索引：先在索引">
-<meta property="og:image" content="http://7xtdiw.com1.z0.glb.clouddn.com/1.png">
+<meta property="og:image" content="http://7xtdiw.com1.z0.glb.clouddn.com/create-high-performance-index-1.png">
 <meta property="og:image" content="http://7xtdiw.com1.z0.glb.clouddn.com/create-high-performance-index-2.png">
 <meta property="og:image" content="http://7xtdiw.com1.z0.glb.clouddn.com/create-high-performance-index-3.png">
 <meta property="og:image" content="http://7xtdiw.com2.z0.glb.clouddn.com/create-high-performance-index-4.png">
-<meta property="og:updated_time" content="2016-04-25T16:52:56.716Z">
+<meta property="og:updated_time" content="2016-04-28T16:38:36.730Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建高性能的索引">
 <meta name="twitter:description" content="索引是存储引擎用于高效获取数据的一种数据结构，索引其实就是一种数据结构。索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段。
@@ -90,14 +90,14 @@ MySQL的存储引擎也是用类似的方法使用索引：先在索引">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/04/24/create-high-performance-index/" title="创建高性能的索引" itemprop="url">创建高性能的索引</a>
+      <a href="/2016/02/24/Create-high-performance-index/" title="创建高性能的索引" itemprop="url">创建高性能的索引</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="漠北以北" target="_blank" itemprop="author">漠北以北</a>
 		
   <p class="article-time">
-    <time datetime="2016-04-24T10:07:17.000Z" itemprop="datePublished"> 发表于 2016-04-24</time>
+    <time datetime="2016-02-24T15:07:17.000Z" itemprop="datePublished"> 发表于 2016-02-24</time>
     
   </p>
 </header>
@@ -113,7 +113,7 @@ MySQL的存储引擎也是用类似的方法使用索引：先在索引">
 <p>虽然是使用B-Tree，但是不同的存储引擎可能会使用一些变种的算法，比如InnoDB使用的是B+Tree，即使它的索引名字是BTREE。</p>
 <p>另外，不同的存储引擎，也会以不同的方式使用B-Tree索引，性能也各有不同。比如，InnoDB按原数据格式存储，而MyISAM则使用前缀压缩技术来使得索引更小。再如InnoDB根据<strong>主键</strong>引用被索引的数据行，而MyISAM通过数据的<strong>物理位置</strong>引用被索引的数据行。</p>
 <p>B-Tree索引中所有的值都是按顺序存储的，并且每一个叶子节点到根的距离都相同。</p>
-<p>下图是B-Tree索引的抽象表示，大致反映了InnoDB索引是如何工作的。<br><img src="http://7xtdiw.com1.z0.glb.clouddn.com/1.png" alt="建立在B+Tree结构上的索引"></p>
+<p>下图是B-Tree索引的抽象表示，大致反映了InnoDB索引是如何工作的。<br><img src="http://7xtdiw.com1.z0.glb.clouddn.com/create-high-performance-index-1.png" alt="建立在B+Tree结构上的索引"></p>
 <p>如上图所示，在B树中，以逻辑页的方式组织数据，每个<strong>非叶子页</strong>包含n个key和n+1个指针（key与指针相互间隔），分别保存着<strong>索引列的值</strong>和<strong>指向子页的指针</strong>，这些指针所指向的子页，其内部包含的所有的key值都界于指针左右的两个key值之间。<strong>叶子页</strong>比较特殊，它包含n个key和1个指针，与非叶子页不同的是，叶子页中的key不仅仅保存索引列的值，<strong>还保存了主键值</strong>（MyISAM引擎保存的是行的物理位置），用来获取完整的数据行，指针则是<strong>指向下一个叶子页</strong>（注：这是带有顺序访问指针的B+Tree），这个指针是用来提高范围查询的性能，有了这个指针，当进行范围查询的时候，只要在B树中查到范围区间内的最小值，然后顺着叶子页的指针向后遍历，就可以一次访问到区间内的所有数据，极大的提高了范围查询效率。</p>
 <blockquote>
 <p>逻辑页是计算机管理存储器的逻辑块，操作系统将内存和磁盘分割为连续的大小相等的块，这里的每个块称为一个逻辑页（在许多操作系统中，页的大小通常为4K，对于InnoDB引擎则为16K），内存和磁盘以页为单位交换数据。</p>
@@ -295,7 +295,7 @@ MySQL的存储引擎也是用类似的方法使用索引：先在索引">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://qq2867234.github.io/2016/04/24/create-high-performance-index/" data-title="创建高性能的索引 | 漠北以北" data-tsina="undefined" class="share clearfix">
+	  <div data-url="http://qq2867234.github.io/2016/02/24/Create-high-performance-index/" data-title="创建高性能的索引 | 漠北以北" data-tsina="undefined" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -308,6 +308,14 @@ MySQL的存储引擎也是用类似的方法使用索引：先在索引">
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2016/03/05/The-underlying-implementation-of-common-container/" title="The-underlying-implementation-of-common-container">
+  <strong>上一篇：</strong><br/>
+  <span>
+  The-underlying-implementation-of-common-container</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2015/11/09/XSS-defence/"  title="XSS防御">
@@ -321,7 +329,7 @@ MySQL的存储引擎也是用类似的方法使用索引：先在索引">
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/04/24/create-high-performance-index/" data-title="创建高性能的索引" data-url="http://qq2867234.github.io/2016/04/24/create-high-performance-index/"></div>
+	<div class="ds-thread" data-thread-key="2016/02/24/Create-high-performance-index/" data-title="创建高性能的索引" data-url="http://qq2867234.github.io/2016/02/24/Create-high-performance-index/"></div>
 </section>
 
 
@@ -343,6 +351,10 @@ MySQL的存储引擎也是用类似的方法使用索引：先在索引">
 <div class="categorieslist">
 	<p class="asidetitle">分类</p>
 		<ul>
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>1</sup></a></li>
+		  
 		
 		  
 			<li><a href="/categories/MySQL/" title="MySQL">MySQL<sup>1</sup></a></li>
