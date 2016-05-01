@@ -11,22 +11,22 @@
     
 
     
-    <meta name="description" content="下面的SQL会用到表：CREATE TABLE demo (&amp;#10;&amp;#9;id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;&amp;#9;name varchar(32) DEFAULT NULL,&amp;#10;&amp;#9;PRIMARY KEY (id)&amp;#10;) DEFAULT CHARSET=utf8;
-###去重比如要根据name字段去重，并保留id最小的记录：
-方法">
+    <meta name="description" content="下面的SQL会用到表：CREATE TABLE demo (&amp;#10;    id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;    name varchar(32) DEFAULT NULL,&amp;#10;    PRIMARY KEY (id)&amp;#10;) DEFAULT CHARSET=utf8;
+去重比如要根据name字段去重，并保留id最小的记录：
+方法一：先">
 <meta property="og:type" content="article">
 <meta property="og:title" content="工作中常用SQL记录">
 <meta property="og:url" content="http://qq2867234.github.io/2016/02/28/Commonly-used-MySQL/index.html">
 <meta property="og:site_name" content="Shadow">
-<meta property="og:description" content="下面的SQL会用到表：CREATE TABLE demo (&amp;#10;&amp;#9;id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;&amp;#9;name varchar(32) DEFAULT NULL,&amp;#10;&amp;#9;PRIMARY KEY (id)&amp;#10;) DEFAULT CHARSET=utf8;
-###去重比如要根据name字段去重，并保留id最小的记录：
-方法">
-<meta property="og:updated_time" content="2016-05-01T14:47:36.229Z">
+<meta property="og:description" content="下面的SQL会用到表：CREATE TABLE demo (&amp;#10;    id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;    name varchar(32) DEFAULT NULL,&amp;#10;    PRIMARY KEY (id)&amp;#10;) DEFAULT CHARSET=utf8;
+去重比如要根据name字段去重，并保留id最小的记录：
+方法一：先">
+<meta property="og:updated_time" content="2016-05-01T14:58:37.216Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="工作中常用SQL记录">
-<meta name="twitter:description" content="下面的SQL会用到表：CREATE TABLE demo (&amp;#10;&amp;#9;id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;&amp;#9;name varchar(32) DEFAULT NULL,&amp;#10;&amp;#9;PRIMARY KEY (id)&amp;#10;) DEFAULT CHARSET=utf8;
-###去重比如要根据name字段去重，并保留id最小的记录：
-方法">
+<meta name="twitter:description" content="下面的SQL会用到表：CREATE TABLE demo (&amp;#10;    id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;    name varchar(32) DEFAULT NULL,&amp;#10;    PRIMARY KEY (id)&amp;#10;) DEFAULT CHARSET=utf8;
+去重比如要根据name字段去重，并保留id最小的记录：
+方法一：先">
 
     
     <link rel="alternative" href="/atom.xml" title="Shadow" type="application/atom+xml">
@@ -99,10 +99,10 @@
 </header>
 	<div class="article-content">
 		
-		<p>下面的SQL会用到表：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE demo (&#10;&#9;id int(11) NOT NULL AUTO_INCREMENT,&#10;&#9;name varchar(32) DEFAULT NULL,&#10;&#9;PRIMARY KEY (id)&#10;) DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure></p>
-<p>###去重<br>比如要根据name字段去重，并保留id最小的记录：</p>
+		<p>下面的SQL会用到表：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE demo (&#10;    id int(11) NOT NULL AUTO_INCREMENT,&#10;    name varchar(32) DEFAULT NULL,&#10;    PRIMARY KEY (id)&#10;) DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure></p>
+<h3 id="去重">去重</h3><p>比如要根据name字段去重，并保留id最小的记录：</p>
 <p><strong>方法一：</strong><br>先在子查询中查询要保留的记录，然后在外层关联原表，删除与子查询结果中name相等，但是id不相等的记录：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DELETE t1 FROM demo t1, (&#10;    SELECT id, name FROM demo GROUP BY name&#10;) t2&#10;WHERE t1.name = t2.name AND t1.id &#60;&#62; t2.id;</span><br></pre></td></tr></table></figure></p>
-<p>上面的SQL，由于GROUP BY 的原理，在子查询中保留下来的是id最小的记录，所以在外层就把所有name相等但是id大的记录给删了。<br>如果想要保留id最大的记录，上面的方法就不适用了，需要用下面的写法，先按照需要的顺序排好序，再GROUP BY，才能在子查询中保留id最大的记录：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DELETE t1 FROM demo t1, (&#10;&#9;SELECT id, name FROM (&#10;&#9;&#9;SELECT id, name FROM demo ORDER BY id DESC&#10;&#9;) t GROUP BY name&#10;) t2&#10;WHERE t1.name = t2.name AND t1.id &#60;&#62; t2.id;</span><br></pre></td></tr></table></figure></p>
+<p>上面的SQL，由于GROUP BY 的原理，在子查询中保留下来的是id最小的记录，所以在外层就把所有name相等但是id大的记录给删了。<br>如果想要保留id最大的记录，上面的方法就不适用了，需要用下面的写法，先按照需要的顺序排好序，再GROUP BY，才能在子查询中保留id最大的记录：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DELETE t1 FROM demo t1, (&#10;    SELECT id, name FROM (&#10;        SELECT id, name FROM demo ORDER BY id DESC&#10;    ) t GROUP BY name&#10;) t2&#10;WHERE t1.name = t2.name AND t1.id &#60;&#62; t2.id;</span><br></pre></td></tr></table></figure></p>
 <p><strong>方法二：</strong><br>表自身关联<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DELETE t1 &#10;FROM demo t1, demo t2&#10;WHERE t1.name = t2.name AND t1.id &#62; t2.id;</span><br></pre></td></tr></table></figure></p>
 <h3 id="日期时间处理">日期时间处理</h3><p><strong>时间格式化</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- 2015-09-09 09:09:09&#10;DATE_FORMAT(now(),&#34;%Y-%m-%d %H:%i:%s&#34;)&#10;-- 15-9-9 9:09:09&#10;DATE_FORMAT(now(),&#34;%y-%c-%e %k:%i:%s&#34;)</span><br></pre></td></tr></table></figure></p>
 <p><strong>日期时间差</strong></p>
@@ -127,19 +127,19 @@
 <p>说明：上面的SQL中，表a的经纬度</p>
 <h3 id="将分组内某字段的值进行串联">将分组内某字段的值进行串联</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT GROUP_CONCAT(id ORDER BY id DESC) FROM demo GROUP BY name;</span><br></pre></td></tr></table></figure>
 <h3 id="行列转换">行列转换</h3><p><strong>列转行</strong><br>这里需要用到一张序列表，只有一个id字段，保存1-2-3-…-n的一个序列，n的大小视情况而定，这里让n为100。<br>假设有下面一行记录：<br>|  id  |   name    |<br>| :—:| :——-: |<br>|  1   |  a,b,c,d  |<br>要将其转换为下面的多行记录：<br>|  id  |  name  |<br>| :—:| :—-: |<br>|  1   |    a   |<br>|  1   |    b   |<br>|  1   |    c   |<br>|  1   |    d   |</p>
-<p>通过下面的SQL即可完成：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT b.id,&#10;&#9;REPLACE(SUBSTRING(SUBSTRING_INDEX(name,&#39;,&#39;,a.id),CHARACTER_LENGTH(SUBSTRING_INDEX(name,&#39;,&#39;,a.id-1))+1),&#39;,&#39;,&#39;&#39;) name&#10;FROM tb_sequence a&#10;CROSS JOIN (&#10;&#9;SELECT id, CONCAT(name,&#39;,&#39;) name, LENGTH(name)-LENGTH(REPLACE(name, &#39;,&#39;, &#39;&#39;))+1 size&#10;&#9;FROM demo b&#10;) b ON a.id &#60;= b.size;</span><br></pre></td></tr></table></figure></p>
+<p>通过下面的SQL即可完成：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT b.id,&#10;    REPLACE(SUBSTRING(SUBSTRING_INDEX(name,&#39;,&#39;,a.id),CHARACTER_LENGTH(SUBSTRING_INDEX(name,&#39;,&#39;,a.id-1))+1),&#39;,&#39;,&#39;&#39;) name&#10;FROM tb_sequence a&#10;CROSS JOIN (&#10;    SELECT id, CONCAT(name,&#39;,&#39;) name, LENGTH(name)-LENGTH(REPLACE(name, &#39;,&#39;, &#39;&#39;))+1 size&#10;    FROM demo b&#10;) b ON a.id &#60;= b.size;</span><br></pre></td></tr></table></figure></p>
 <p><strong>行转列</strong><br>使用sum(case when … then … end) as … 来完成：<br>假设有下面多行记录：<br>|  year  |  month | price |<br>| :—–:| :—-: | :—: |<br>|  2016  |   1    |  1000 |<br>|  2016  |   2    |  2000 |<br>|  2016  |   3    |  3000 |<br>|  2016  |   4    |  4000 |<br>|  2016  |   5    |  5000 |<br>|  2016  |   6    |  6000 |</p>
 <p>要将其转换为下面的单行记录：<br>|  月份  | 2016年1月 | 2016年2月 | 2016年3月 | 2016年4月 | 2016年5月 | 2016年6月 |<br>| :—-:| :—–: | :—–: | :—–: | :—-: | :—-: | :—-: |<br>| 销售额 |  1000   |  2000   |  3000   |  4000  |  5000  |  6000  |</p>
-<p>通过下面的SQL即可完成：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT &#39;&#38144;&#21806;&#39069;&#39; &#26376;&#20221; ,&#10;&#9;SUM(CASE WHEN month=1 THEN price END) AS &#39;1&#26376;&#39;,&#10;&#9;SUM(CASE WHEN month=2 THEN price END) AS &#39;2&#26376;&#39;,&#10;&#9;SUM(CASE WHEN month=3 THEN price END) AS &#39;3&#26376;&#39;,&#10;&#9;SUM(CASE WHEN month=4 THEN price END) AS &#39;4&#26376;&#39;,&#10;&#9;SUM(CASE WHEN month=5 THEN price END) AS &#39;5&#26376;&#39;,&#10;&#9;SUM(CASE WHEN month=6 THEN price END) AS &#39;6&#26376;&#39;&#10;FROM demo;</span><br></pre></td></tr></table></figure></p>
+<p>通过下面的SQL即可完成：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT &#39;&#38144;&#21806;&#39069;&#39; &#26376;&#20221; ,&#10;    SUM(CASE WHEN month=1 THEN price END) AS &#39;1&#26376;&#39;,&#10;    SUM(CASE WHEN month=2 THEN price END) AS &#39;2&#26376;&#39;,&#10;    SUM(CASE WHEN month=3 THEN price END) AS &#39;3&#26376;&#39;,&#10;    SUM(CASE WHEN month=4 THEN price END) AS &#39;4&#26376;&#39;,&#10;    SUM(CASE WHEN month=5 THEN price END) AS &#39;5&#26376;&#39;,&#10;    SUM(CASE WHEN month=6 THEN price END) AS &#39;6&#26376;&#39;&#10;FROM demo;</span><br></pre></td></tr></table></figure></p>
 <h3 id="分组选择最大值">分组选择最大值</h3><p>下面的SQL要实现的功能：保留名字重复记录中id最大的记录</p>
 <ul>
 <li><p>先在子查询中排序，然后再分组</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT id, name FROM (&#10;&#9;SELECT id, name FROM demo ORDER BY id DESC&#10;) t GROUP BY name;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT id, name FROM (&#10;    SELECT id, name FROM demo ORDER BY id DESC&#10;) t GROUP BY name;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>先Distinct，再子查询</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT name,&#10;&#9;(SELECT id FROM demo t2 WHERE t1.name = t2.name ORDER BY t2.id DESC LIMIT 1) AS id&#10;FROM (&#10;&#9;SELECT DISTINCT name FROM demo&#10;) t1;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT name,&#10;    (SELECT id FROM demo t2 WHERE t1.name = t2.name ORDER BY t2.id DESC LIMIT 1) AS id&#10;FROM (&#10;    SELECT DISTINCT name FROM demo&#10;) t1;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>利用自定义变量，先对数据进行排序，再按顺序对组内记录进行编号。 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT id, name FROM (&#10;&#9;SELECT id, name,&#10;&#9;&#9;-- &#20026;&#37325;&#22797;&#30340;&#23383;&#27573;&#32534;&#21495;&#10;&#9;&#9;(CASE WHEN name = @curName THEN @curRow := @curRow + 1 ELSE @curRow := 1 AND @curName := name END ) AS cnt&#10;&#9;FROM (&#10;&#9;&#9;-- &#25353;&#29031;&#38656;&#35201;&#30340;&#39034;&#24207;&#25490;&#24207;&#65288;&#37325;&#22797;&#23383;&#27573;&#24517;&#39035;&#26159;&#25490;&#24207;&#23383;&#27573;&#30340;&#31532;&#19968;&#21015;&#65289;&#10;&#9;&#9;SELECT id, name FROM demo ORDER BY name, id DESC&#10;&#9;) t1, (&#10;&#9;&#9;SELECT @curRow := 0, @curName := &#39;&#39;&#10;&#9;) t2&#10;) t&#10;WHERE t.cnt = 0;</span><br></pre></td></tr></table></figure>
+<li>利用自定义变量，先对数据进行排序，再按顺序对组内记录进行编号。 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT id, name FROM (&#10;    SELECT id, name,&#10;        -- &#20026;&#37325;&#22797;&#30340;&#23383;&#27573;&#32534;&#21495;&#10;        (CASE WHEN name = @curName THEN @curRow := @curRow + 1 ELSE @curRow := 1 AND @curName := name END ) AS cnt&#10;    FROM (&#10;        -- &#25353;&#29031;&#38656;&#35201;&#30340;&#39034;&#24207;&#25490;&#24207;&#65288;&#37325;&#22797;&#23383;&#27573;&#24517;&#39035;&#26159;&#25490;&#24207;&#23383;&#27573;&#30340;&#31532;&#19968;&#21015;&#65289;&#10;        SELECT id, name FROM demo ORDER BY name, id DESC&#10;    ) t1, (&#10;        SELECT @curRow := 0, @curName := &#39;&#39;&#10;    ) t2&#10;) t&#10;WHERE t.cnt = 0;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -147,10 +147,10 @@
 <h3 id="分组选择TopN">分组选择TopN</h3><p>有如下数据：<br>|   id  |   rid |  price  |<br>| :—: | :—-:| :—–: |<br>|   1   |   1   |   4500  |<br>|   2   |   1   |   4500  |<br>|   3   |   1   |   4100  |<br>|   4   |   1   |   4000  |<br>|   5   |   1   |   4000  |<br>|   6   |   1   |   4300  |<br>|   7   |   1   |   4200  |<br>|   8   |   2   |   4000  |<br>|   9   |   2   |   4500  |<br>|  10   |   2   |   3500  |<br>|  11   |   2   |   3800  |<br>|  12   |   2   |   3300  |<br>|  13   |   2   |   4400  |<br>|  14   |   2   |   3000  |<br>要查询每个rid下，price最高的前5条记录，下面是两种实现方式：</p>
 <ul>
 <li><p>利用子查询对记录进行编号<br>原理是扫描所有行，然后利用子查询，对于每一行，再次查询相同表，根据指定的排序条件查询比当前行price大的记录总数，作为该记录的排名。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT rid, price, cnt FROM (&#10;&#9;SELECT id, rid, price,&#10;&#9;&#9;(SELECT count(*) FROM demo b WHERE a.rid = b.rid &#10;&#9;&#9;&#9;AND (a.price &#60; b.price OR (a.price = b.price AND a.id &#60; b.id) )) cnt&#10;&#9;FROM demo&#10;) t&#10;WHERE t.cnt &#60; 5&#10;ORDER BY rid, cnt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT rid, price, cnt FROM (&#10;    SELECT id, rid, price,&#10;        (SELECT count(*) FROM demo b WHERE a.rid = b.rid &#10;            AND (a.price &#60; b.price OR (a.price = b.price AND a.id &#60; b.id) )) cnt&#10;    FROM demo&#10;) t&#10;WHERE t.cnt &#60; 5&#10;ORDER BY rid, cnt;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>利用自定义变量<br>先对结果进行排序，然后再使用自定义的变量对记录进行排名。相对于前面的方式来说，不需要使用子查询。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT rid, price, cnt FROM( &#10;&#9;SELECT rid, price, &#10;&#9;&#9;(CASE rid WHEN @curID THEN @curRow := @curRow + 1 ELSE @curRow := 1 AND @curID := rid END ) AS cnt    &#10;&#9;FROM (&#10;&#9;&#9;-- &#25353;&#29031;&#38656;&#35201;&#30340;&#39034;&#24207;&#25490;&#24207;&#65288;&#29992;&#26469;&#20998;&#32452;&#30340;&#23383;&#27573;&#24517;&#39035;&#26159;&#25490;&#24207;&#23383;&#27573;&#30340;&#31532;&#19968;&#21015;&#65289;&#10;&#9;&#9;SELECT rid, price &#10;&#9;&#9;FROM demo&#10;&#9;&#9;ORDER BY rid, price DESC &#10;&#9;) t1, (&#10;&#9;&#9;SELECT @curRow := 0, @curID := 0&#10;&#9;) t2&#10;) t&#10;where t.cnt &#60;= 5;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT rid, price, cnt FROM( &#10;    SELECT rid, price, &#10;        (CASE rid WHEN @curID THEN @curRow := @curRow + 1 ELSE @curRow := 1 AND @curID := rid END ) AS cnt    &#10;    FROM (&#10;        -- &#25353;&#29031;&#38656;&#35201;&#30340;&#39034;&#24207;&#25490;&#24207;&#65288;&#29992;&#26469;&#20998;&#32452;&#30340;&#23383;&#27573;&#24517;&#39035;&#26159;&#25490;&#24207;&#23383;&#27573;&#30340;&#31532;&#19968;&#21015;&#65289;&#10;        SELECT rid, price &#10;        FROM demo&#10;        ORDER BY rid, price DESC &#10;    ) t1, (&#10;        SELECT @curRow := 0, @curID := 0&#10;    ) t2&#10;) t&#10;where t.cnt &#60;= 5;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
   
@@ -219,7 +219,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#日期时间处理"><span class="toc-number">1.</span> <span class="toc-text">日期时间处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串处理"><span class="toc-number">2.</span> <span class="toc-text">字符串处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算两点的直线距离"><span class="toc-number">3.</span> <span class="toc-text">计算两点的直线距离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将分组内某字段的值进行串联"><span class="toc-number">4.</span> <span class="toc-text">将分组内某字段的值进行串联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行列转换"><span class="toc-number">5.</span> <span class="toc-text">行列转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组选择最大值"><span class="toc-number">6.</span> <span class="toc-text">分组选择最大值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组选择TopN"><span class="toc-number">7.</span> <span class="toc-text">分组选择TopN</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#去重"><span class="toc-number">1.</span> <span class="toc-text">去重</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日期时间处理"><span class="toc-number">2.</span> <span class="toc-text">日期时间处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串处理"><span class="toc-number">3.</span> <span class="toc-text">字符串处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算两点的直线距离"><span class="toc-number">4.</span> <span class="toc-text">计算两点的直线距离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将分组内某字段的值进行串联"><span class="toc-number">5.</span> <span class="toc-text">将分组内某字段的值进行串联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行列转换"><span class="toc-number">6.</span> <span class="toc-text">行列转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组选择最大值"><span class="toc-number">7.</span> <span class="toc-text">分组选择最大值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组选择TopN"><span class="toc-number">8.</span> <span class="toc-text">分组选择TopN</span></a></li></ol>
  
   </div>
 
