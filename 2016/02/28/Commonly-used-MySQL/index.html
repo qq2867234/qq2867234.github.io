@@ -1,0 +1,498 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>工作中常用SQL记录 | Shadow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Shadow">
+    
+
+    
+    <meta name="description" content="下面的SQL会用到表：CREATE TABLE demo (&amp;#10;&amp;#9;id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;&amp;#9;name varchar(32) DEFAULT NULL,&amp;#10;&amp;#9;PRIMARY KEY (id)&amp;#10;) DEFAULT CHARSET=utf8;
+###去重比如要根据name字段去重，并保留id最小的记录：
+方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工作中常用SQL记录">
+<meta property="og:url" content="http://qq2867234.github.io/2016/02/28/Commonly-used-MySQL/index.html">
+<meta property="og:site_name" content="Shadow">
+<meta property="og:description" content="下面的SQL会用到表：CREATE TABLE demo (&amp;#10;&amp;#9;id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;&amp;#9;name varchar(32) DEFAULT NULL,&amp;#10;&amp;#9;PRIMARY KEY (id)&amp;#10;) DEFAULT CHARSET=utf8;
+###去重比如要根据name字段去重，并保留id最小的记录：
+方法">
+<meta property="og:updated_time" content="2016-05-01T14:47:36.229Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="工作中常用SQL记录">
+<meta name="twitter:description" content="下面的SQL会用到表：CREATE TABLE demo (&amp;#10;&amp;#9;id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;&amp;#9;name varchar(32) DEFAULT NULL,&amp;#10;&amp;#9;PRIMARY KEY (id)&amp;#10;) DEFAULT CHARSET=utf8;
+###去重比如要根据name字段去重，并保留id最小的记录：
+方法">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Shadow" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Shadow" title="Shadow"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Shadow">Shadow</a></h1>
+				<h2 class="blog-motto">Every day a little better than yesterday</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:qq2867234.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/28/Commonly-used-MySQL/" title="工作中常用SQL记录" itemprop="url">工作中常用SQL记录</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Shadow" target="_blank" itemprop="author">Shadow</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-28T15:07:17.000Z" itemprop="datePublished"> 发表于 2016-02-28</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<p>下面的SQL会用到表：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE demo (&#10;&#9;id int(11) NOT NULL AUTO_INCREMENT,&#10;&#9;name varchar(32) DEFAULT NULL,&#10;&#9;PRIMARY KEY (id)&#10;) DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure></p>
+<p>###去重<br>比如要根据name字段去重，并保留id最小的记录：</p>
+<p><strong>方法一：</strong><br>先在子查询中查询要保留的记录，然后在外层关联原表，删除与子查询结果中name相等，但是id不相等的记录：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DELETE t1 FROM demo t1, (&#10;    SELECT id, name FROM demo GROUP BY name&#10;) t2&#10;WHERE t1.name = t2.name AND t1.id &#60;&#62; t2.id;</span><br></pre></td></tr></table></figure></p>
+<p>上面的SQL，由于GROUP BY 的原理，在子查询中保留下来的是id最小的记录，所以在外层就把所有name相等但是id大的记录给删了。<br>如果想要保留id最大的记录，上面的方法就不适用了，需要用下面的写法，先按照需要的顺序排好序，再GROUP BY，才能在子查询中保留id最大的记录：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DELETE t1 FROM demo t1, (&#10;&#9;SELECT id, name FROM (&#10;&#9;&#9;SELECT id, name FROM demo ORDER BY id DESC&#10;&#9;) t GROUP BY name&#10;) t2&#10;WHERE t1.name = t2.name AND t1.id &#60;&#62; t2.id;</span><br></pre></td></tr></table></figure></p>
+<p><strong>方法二：</strong><br>表自身关联<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DELETE t1 &#10;FROM demo t1, demo t2&#10;WHERE t1.name = t2.name AND t1.id &#62; t2.id;</span><br></pre></td></tr></table></figure></p>
+<h3 id="日期时间处理">日期时间处理</h3><p><strong>时间格式化</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- 2015-09-09 09:09:09&#10;DATE_FORMAT(now(),&#34;%Y-%m-%d %H:%i:%s&#34;)&#10;-- 15-9-9 9:09:09&#10;DATE_FORMAT(now(),&#34;%y-%c-%e %k:%i:%s&#34;)</span><br></pre></td></tr></table></figure></p>
+<p><strong>日期时间差</strong></p>
+<ul>
+<li><p>计算日期差<br>（注：前面的日期 减 后面的日期）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DATEDIFF(expr1, expr2)&#10;DATEDIFF(now(), &#39;2015-09-09&#39;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>计算时间差（可以计算任意类型的差值，比如：年数差、月份差、日差、时差等）<br>（注：后面的时间戳 减 前面的时间戳）<br>unit的单位可指定为：YEAR、MONTH、DAY、WEEK、HOUR、MINUTE、SECOND。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">TIMESTAMPDIFF(unit, datetime_expr1, datetime_expr2)&#10;TIMESTAMPDIFF(DAY, &#39;2015-09-09&#39;, now())</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>计算指定间隔的另一个时间</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DATE_SUB(date, INTERVAL expr type)&#10;DATE_ADD(date, INTERVAL expr type)</span><br></pre></td></tr></table></figure></p>
+<p>说明：date是一个日期；expr是时间间隔；type是时间间隔的单位，其值可是下列值：<br>    YEAR、MONTH、DAY、WEEK、HOUR、MINUTE、SECOND、MICROSECOND 等。<br>示例：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10&#20998;&#38047;&#21069;&#65306;DATE_SUB(NOW(),INTERVAL 10 MINUTE)&#10;10&#20998;&#38047;&#21518;&#65306;DATE_ADD(NOW(),INTERVAL 10 MINUTE)&#10;1&#22825;&#21069;&#65306;   DATE_SUB(NOW(),INTERVAL 1 DAY)</span><br></pre></td></tr></table></figure></p>
+<h3 id="字符串处理">字符串处理</h3><p><strong>从左开始截取字符串</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LEFT(str, length)</span><br></pre></td></tr></table></figure></p>
+<p><strong>从右开始截取字符串</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">RIGHT(str, length)</span><br></pre></td></tr></table></figure></p>
+<p><strong>截取字符串</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SUBSTRING(str, pos)&#10;SUBSTRING(str, pos, length)</span><br></pre></td></tr></table></figure></p>
+<p>（注：如果位置pos是负数 如-5 则是从后倒数，到字符串结束或指定截取的长度） </p>
+<p><strong>按分隔符截取字符串</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SUBSTRING_INDEX(str, delim, count)</span><br></pre></td></tr></table></figure></p>
+<p>说明：substring_index（被截取字段，分隔符，分隔符出现的次数）<br>（注：如果“分隔符出现的次数”是负数，如-1，则分隔符从末尾开始倒数，截取到字符串结束）<br>示例：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT SUBSTRING_INDEX(&#34;demo(hello)(world)demo&#34;, &#39;(&#39;, 1);&#10;&#32467;&#26524;&#65306;demo&#65288;&#34920;&#31034;&#20174;&#22836;&#24320;&#22987;&#25130;&#21462;&#23383;&#31526;&#20018;&#65292;&#30452;&#21040;&#21040;&#31532;1&#20010;&#20998;&#38548;&#31526;&#39;(&#39;&#20026;&#27490;&#65292;&#25152;&#20197;&#32467;&#26524;&#26159;demo&#65289;&#10;SELECT SUBSTRING_INDEX(&#34;demo(hello)(world)demo&#34;, &#39;(&#39;, 2);&#10;&#32467;&#26524;&#65306;demo(hello)&#10;SELECT SUBSTRING_INDEX(&#34;demo(hello)(world)demo&#34;, &#39;(&#39;, -1);&#10;&#32467;&#26524;&#65306;world)demo&#65288;&#34920;&#31034;&#20174;&#22836;&#24320;&#22987;&#25130;&#21462;&#23383;&#31526;&#20018;&#65292;&#30452;&#21040;&#21040;&#31532;1&#20010;&#20998;&#38548;&#31526;&#39;(&#39;&#20026;&#27490;&#65292;&#25152;&#20197;&#32467;&#26524;&#26159;demo&#65289;&#10;SELECT SUBSTRING_INDEX(&#34;demo(hello)(world)demo&#34;, &#39;(&#39;, -2);&#10;&#32467;&#26524;&#65306;hello)(world)demo</span><br></pre></td></tr></table></figure></p>
+<p>###提取字符串括号内的子串<br>比如一个字符串：金泉时代广场(保利金泉)，想要提起取括号内的“保利金泉”，用下面的SQL即可：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#19981;&#20445;&#30041;&#25324;&#21495;&#65306;&#10;LEFT(RIGHT(name, CHAR_LENGTH(name)-LOCATE(&#39;(&#39;,name)) ,LOCATE(&#39;)&#39;,RIGHT(name, CHAR_LENGTH(name)-LOCATE(&#39;(&#39;,name) - 1)))&#10;&#20445;&#30041;&#25324;&#21495;&#65306;&#10;LEFT(RIGHT(name, CHAR_LENGTH(name)-LOCATE(&#39;(&#39;,name) + 1) ,LOCATE(&#39;)&#39;,RIGHT(name, CHAR_LENGTH(name)-LOCATE(&#39;(&#39;,name) + 1)))</span><br></pre></td></tr></table></figure></p>
+<h3 id="计算两点的直线距离">计算两点的直线距离</h3><p>假设有两个点，分别来自表a(longitude, latitude)和表b(longitude, latitude)，则两点的距离公式为：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">round(12742000*asin(sqrt(pow(sin((a.latitude-b.latitude)*0.017453)/2,2)+cos(a.latitude*0.017453)*cos(b.latitude*0.017453)*pow(sin((a.longitude-b.longitude)*0.017453)/2,2))))</span><br></pre></td></tr></table></figure></p>
+<p>说明：上面的SQL中，表a的经纬度</p>
+<h3 id="将分组内某字段的值进行串联">将分组内某字段的值进行串联</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT GROUP_CONCAT(id ORDER BY id DESC) FROM demo GROUP BY name;</span><br></pre></td></tr></table></figure>
+<h3 id="行列转换">行列转换</h3><p><strong>列转行</strong><br>这里需要用到一张序列表，只有一个id字段，保存1-2-3-…-n的一个序列，n的大小视情况而定，这里让n为100。<br>假设有下面一行记录：<br>|  id  |   name    |<br>| :—:| :——-: |<br>|  1   |  a,b,c,d  |<br>要将其转换为下面的多行记录：<br>|  id  |  name  |<br>| :—:| :—-: |<br>|  1   |    a   |<br>|  1   |    b   |<br>|  1   |    c   |<br>|  1   |    d   |</p>
+<p>通过下面的SQL即可完成：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT b.id,&#10;&#9;REPLACE(SUBSTRING(SUBSTRING_INDEX(name,&#39;,&#39;,a.id),CHARACTER_LENGTH(SUBSTRING_INDEX(name,&#39;,&#39;,a.id-1))+1),&#39;,&#39;,&#39;&#39;) name&#10;FROM tb_sequence a&#10;CROSS JOIN (&#10;&#9;SELECT id, CONCAT(name,&#39;,&#39;) name, LENGTH(name)-LENGTH(REPLACE(name, &#39;,&#39;, &#39;&#39;))+1 size&#10;&#9;FROM demo b&#10;) b ON a.id &#60;= b.size;</span><br></pre></td></tr></table></figure></p>
+<p><strong>行转列</strong><br>使用sum(case when … then … end) as … 来完成：<br>假设有下面多行记录：<br>|  year  |  month | price |<br>| :—–:| :—-: | :—: |<br>|  2016  |   1    |  1000 |<br>|  2016  |   2    |  2000 |<br>|  2016  |   3    |  3000 |<br>|  2016  |   4    |  4000 |<br>|  2016  |   5    |  5000 |<br>|  2016  |   6    |  6000 |</p>
+<p>要将其转换为下面的单行记录：<br>|  月份  | 2016年1月 | 2016年2月 | 2016年3月 | 2016年4月 | 2016年5月 | 2016年6月 |<br>| :—-:| :—–: | :—–: | :—–: | :—-: | :—-: | :—-: |<br>| 销售额 |  1000   |  2000   |  3000   |  4000  |  5000  |  6000  |</p>
+<p>通过下面的SQL即可完成：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT &#39;&#38144;&#21806;&#39069;&#39; &#26376;&#20221; ,&#10;&#9;SUM(CASE WHEN month=1 THEN price END) AS &#39;1&#26376;&#39;,&#10;&#9;SUM(CASE WHEN month=2 THEN price END) AS &#39;2&#26376;&#39;,&#10;&#9;SUM(CASE WHEN month=3 THEN price END) AS &#39;3&#26376;&#39;,&#10;&#9;SUM(CASE WHEN month=4 THEN price END) AS &#39;4&#26376;&#39;,&#10;&#9;SUM(CASE WHEN month=5 THEN price END) AS &#39;5&#26376;&#39;,&#10;&#9;SUM(CASE WHEN month=6 THEN price END) AS &#39;6&#26376;&#39;&#10;FROM demo;</span><br></pre></td></tr></table></figure></p>
+<h3 id="分组选择最大值">分组选择最大值</h3><p>下面的SQL要实现的功能：保留名字重复记录中id最大的记录</p>
+<ul>
+<li><p>先在子查询中排序，然后再分组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT id, name FROM (&#10;&#9;SELECT id, name FROM demo ORDER BY id DESC&#10;) t GROUP BY name;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>先Distinct，再子查询</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT name,&#10;&#9;(SELECT id FROM demo t2 WHERE t1.name = t2.name ORDER BY t2.id DESC LIMIT 1) AS id&#10;FROM (&#10;&#9;SELECT DISTINCT name FROM demo&#10;) t1;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>利用自定义变量，先对数据进行排序，再按顺序对组内记录进行编号。 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT id, name FROM (&#10;&#9;SELECT id, name,&#10;&#9;&#9;-- &#20026;&#37325;&#22797;&#30340;&#23383;&#27573;&#32534;&#21495;&#10;&#9;&#9;(CASE WHEN name = @curName THEN @curRow := @curRow + 1 ELSE @curRow := 1 AND @curName := name END ) AS cnt&#10;&#9;FROM (&#10;&#9;&#9;-- &#25353;&#29031;&#38656;&#35201;&#30340;&#39034;&#24207;&#25490;&#24207;&#65288;&#37325;&#22797;&#23383;&#27573;&#24517;&#39035;&#26159;&#25490;&#24207;&#23383;&#27573;&#30340;&#31532;&#19968;&#21015;&#65289;&#10;&#9;&#9;SELECT id, name FROM demo ORDER BY name, id DESC&#10;&#9;) t1, (&#10;&#9;&#9;SELECT @curRow := 0, @curName := &#39;&#39;&#10;&#9;) t2&#10;) t&#10;WHERE t.cnt = 0;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="分组选择TopN">分组选择TopN</h3><p>有如下数据：<br>|   id  |   rid |  price  |<br>| :—: | :—-:| :—–: |<br>|   1   |   1   |   4500  |<br>|   2   |   1   |   4500  |<br>|   3   |   1   |   4100  |<br>|   4   |   1   |   4000  |<br>|   5   |   1   |   4000  |<br>|   6   |   1   |   4300  |<br>|   7   |   1   |   4200  |<br>|   8   |   2   |   4000  |<br>|   9   |   2   |   4500  |<br>|  10   |   2   |   3500  |<br>|  11   |   2   |   3800  |<br>|  12   |   2   |   3300  |<br>|  13   |   2   |   4400  |<br>|  14   |   2   |   3000  |<br>要查询每个rid下，price最高的前5条记录，下面是两种实现方式：</p>
+<ul>
+<li><p>利用子查询对记录进行编号<br>原理是扫描所有行，然后利用子查询，对于每一行，再次查询相同表，根据指定的排序条件查询比当前行price大的记录总数，作为该记录的排名。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT rid, price, cnt FROM (&#10;&#9;SELECT id, rid, price,&#10;&#9;&#9;(SELECT count(*) FROM demo b WHERE a.rid = b.rid &#10;&#9;&#9;&#9;AND (a.price &#60; b.price OR (a.price = b.price AND a.id &#60; b.id) )) cnt&#10;&#9;FROM demo&#10;) t&#10;WHERE t.cnt &#60; 5&#10;ORDER BY rid, cnt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用自定义变量<br>先对结果进行排序，然后再使用自定义的变量对记录进行排名。相对于前面的方式来说，不需要使用子查询。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT rid, price, cnt FROM( &#10;&#9;SELECT rid, price, &#10;&#9;&#9;(CASE rid WHEN @curID THEN @curRow := @curRow + 1 ELSE @curRow := 1 AND @curID := rid END ) AS cnt    &#10;&#9;FROM (&#10;&#9;&#9;-- &#25353;&#29031;&#38656;&#35201;&#30340;&#39034;&#24207;&#25490;&#24207;&#65288;&#29992;&#26469;&#20998;&#32452;&#30340;&#23383;&#27573;&#24517;&#39035;&#26159;&#25490;&#24207;&#23383;&#27573;&#30340;&#31532;&#19968;&#21015;&#65289;&#10;&#9;&#9;SELECT rid, price &#10;&#9;&#9;FROM demo&#10;&#9;&#9;ORDER BY rid, price DESC &#10;&#9;) t1, (&#10;&#9;&#9;SELECT @curRow := 0, @curID := 0&#10;&#9;) t2&#10;) t&#10;where t.cnt &#60;= 5;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/MySQL/">MySQL</a><a href="/tags/常用SQL/">常用SQL</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://qq2867234.github.io/2016/02/28/Commonly-used-MySQL/" data-title="工作中常用SQL记录 | Shadow" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/03/05/The-underlying-implementation-of-common-container/" title="Java常用容器的实现原理">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Java常用容器的实现原理</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/02/24/Create-high-performance-index/"  title="创建高性能的索引">
+ <strong>下一篇：</strong><br/> 
+ <span>创建高性能的索引
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/02/28/Commonly-used-MySQL/" data-title="工作中常用SQL记录" data-url="http://qq2867234.github.io/2016/02/28/Commonly-used-MySQL/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#日期时间处理"><span class="toc-number">1.</span> <span class="toc-text">日期时间处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串处理"><span class="toc-number">2.</span> <span class="toc-text">字符串处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算两点的直线距离"><span class="toc-number">3.</span> <span class="toc-text">计算两点的直线距离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将分组内某字段的值进行串联"><span class="toc-number">4.</span> <span class="toc-text">将分组内某字段的值进行串联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行列转换"><span class="toc-number">5.</span> <span class="toc-text">行列转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组选择最大值"><span class="toc-number">6.</span> <span class="toc-text">分组选择最大值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组选择TopN"><span class="toc-number">7.</span> <span class="toc-text">分组选择TopN</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/MySQL/" title="MySQL">MySQL<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Jason. This is my blog on GitHub. <br/>
+			Every day a little better than yesterday</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2609473321" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/qq2867234" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Shadow">Shadow</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(20,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    /*if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }*/
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(80,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"chenjiusheng"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
