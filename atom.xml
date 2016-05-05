@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://qq2867234.github.io/"/>
-  <updated>2016-05-05T16:02:21.872Z</updated>
+  <updated>2016-05-05T16:14:38.082Z</updated>
   <id>http://qq2867234.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://qq2867234.github.io/2016/03/14/Linux-service-manager/"/>
     <id>http://qq2867234.github.io/2016/03/14/Linux-service-manager/</id>
     <published>2016-03-14T15:42:34.000Z</published>
-    <updated>2016-05-05T16:02:21.872Z</updated>
+    <updated>2016-05-05T16:14:38.082Z</updated>
     
     <content type="html">&lt;h3 id=&quot;系统运行级别&quot;&gt;系统运行级别&lt;/h3&gt;&lt;p&gt;Linux系统包含以下7个运行级别&lt;/p&gt;
 &lt;table&gt;
@@ -65,40 +65,46 @@
 &lt;p&gt;要查看系统当前的运行级别，可以用 &lt;code&gt;runlevel&lt;/code&gt; 命令，要修改运行级别，则使用 &lt;code&gt;init 级别编号&lt;/code&gt; ，比如使用 &lt;code&gt;init 0&lt;/code&gt; 命令，系统将关机。&lt;/p&gt;
 &lt;h3 id=&quot;服务的分类&quot;&gt;服务的分类&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;使用RPM包安装的服务&lt;br&gt; 安装位置：RPM包安装的默认位置&lt;/li&gt;
-&lt;li&gt;源码包安装的服务&lt;br&gt; 安装位置：用户指定，一般是/usr/local/（类似于windows的Program Files）&lt;br&gt; usr是 Unix System Resource（Unix系统资源）&lt;/li&gt;
+&lt;li&gt;源码包安装的服务&lt;br&gt; 安装位置：用户指定，一般是&lt;code&gt;/usr/local/&lt;/code&gt;（类似于windows的Program Files）&lt;br&gt; usr是 Unix System Resource（Unix系统资源）&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;其中，RPM安装的默认位置：&lt;br&gt;    /etc/init.d/           服务启动脚本（所有通过RPM包安装的服务的启动脚本，都在这个目录）&lt;br&gt;    /etc/sysconfig/     初始化环境配置文件位置&lt;br&gt;    /etc/                      配置文件位置&lt;br&gt;    /var/lib/                服务产生的数据放在这里&lt;br&gt;    /var/log/               日志&lt;/p&gt;
+&lt;p&gt;其中，RPM安装的默认位置：&lt;br&gt;    &lt;code&gt;/etc/init.d/&lt;/code&gt;           服务启动脚本（所有通过RPM包安装的服务的启动脚本，都在这个目录）&lt;br&gt;    &lt;code&gt;/etc/sysconfig/&lt;/code&gt;     初始化环境配置文件位置&lt;br&gt;    &lt;code&gt;/etc/&lt;/code&gt;                      配置文件位置&lt;br&gt;    &lt;code&gt;/var/lib/&lt;/code&gt;                服务产生的数据放在这里&lt;br&gt;    &lt;code&gt;/var/log/&lt;/code&gt;               日志&lt;/p&gt;
 &lt;h3 id=&quot;查看已安装的服务&quot;&gt;查看已安装的服务&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;查看RPM包安装的服务，以及服务是否自启动&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;chkconfig --list&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;结果（下面只列出其中一条）： &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;network &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:off &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:off &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;6&lt;/span&gt;:off&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;注：&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;-&lt;span class=&quot;number&quot;&gt;6&lt;/span&gt; 表示服务器的&lt;span class=&quot;number&quot;&gt;7&lt;/span&gt;个运行级别，on/off 表示系统处于指定级别下是否自动启动）&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;li&gt;&lt;p&gt;查看RPM包安装的服务，以及服务是否自启动&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;chkconfig --list&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;结果（下面只列出其中一条）： &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;network &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:off &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:off &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;6&lt;/span&gt;:off&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;注：&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;-&lt;span class=&quot;number&quot;&gt;6&lt;/span&gt; 表示服务器的&lt;span class=&quot;number&quot;&gt;7&lt;/span&gt;个运行级别，on/off 表示系统处于指定级别下是否自动启动）&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;源码包安装的服务，一般是/usr/local下。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;PS：很多服务名称后面会加个d，比如httpd、mysqld。d是用来表示守护进程的意思。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;源码包安装的服务，一般是/usr/local下。&lt;/li&gt;
-&lt;/ol&gt;
 &lt;h3 id=&quot;启动RPM包安装的服务&quot;&gt;启动RPM包安装的服务&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;/etc/init.d/serviceName start|stop|restart|status&lt;br&gt; 这是Linux系统标准的服务启动方式，推荐使用。&lt;/li&gt;
-&lt;li&gt;service serviceName start|stop|restart|status&lt;br&gt; 这是Redhat专有的命令。Redhat为了方便，单独开发的，只有redhat系列，才能使用这个命令，换一个linux版本，就不一定有了，所以最好不要太依赖这种方式。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/etc/init.d/serviceName start|stop|restart|status&lt;/code&gt;&lt;br&gt; 这是Linux系统标准的服务启动方式，推荐使用。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;service serviceName start|stop|restart|status&lt;/code&gt;&lt;br&gt; 这是Redhat专有的命令。Redhat为了方便，单独开发的，只有redhat系列，才能使用这个命令，换一个linux版本，就不一定有了，所以最好不要太依赖这种方式。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&quot;启动源码包安装的服务&quot;&gt;启动源码包安装的服务&lt;/h3&gt;&lt;p&gt;使用绝对路径，调用启动脚本来启动。可以通过查看源码包的安装说明，查看启动脚本的方法。比如：&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/usr/&lt;span class=&quot;built_in&quot;&gt;local&lt;/span&gt;/apache2/bin/apachectl start|stop&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;启动源码包安装的服务&quot;&gt;启动源码包安装的服务&lt;/h3&gt;&lt;p&gt;使用绝对路径，调用启动脚本来启动。可以通过查看源码包的安装说明，查看启动脚本的方法。&lt;br&gt;比如：&lt;code&gt;/usr/local/apache2/bin/apachectl start|stop&lt;/code&gt;&lt;/p&gt;
 &lt;h3 id=&quot;RPM安装服务的自启动&quot;&gt;RPM安装服务的自启动&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;使用chkconfig命令&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;使用&lt;code&gt;chkconfig&lt;/code&gt;命令&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;chkconfig [--level &amp;#36816;&amp;#34892;&amp;#32423;&amp;#21035;] [&amp;#26381;&amp;#21153;&amp;#21517;] [on|off]&amp;#10;# &amp;#27604;&amp;#22914;&amp;#35201;&amp;#35774;&amp;#32622;apache&amp;#26381;&amp;#21153;&amp;#33258;&amp;#21551;&amp;#21160;&amp;#65292;&amp;#21017;&amp;#20351;&amp;#29992;&amp;#19979;&amp;#38754;&amp;#30340;&amp;#21629;&amp;#20196;&amp;#65306;&amp;#10;# &amp;#65288;&amp;#20854;&amp;#20013;&amp;#65292;--level 2345&amp;#20026;&amp;#24815;&amp;#29992;&amp;#20889;&amp;#27861;&amp;#12290;&amp;#25512;&amp;#33616;&amp;#20351;&amp;#29992;&amp;#36825;&amp;#31181;&amp;#26041;&amp;#27861;&amp;#26469;&amp;#35774;&amp;#32622;&amp;#33258;&amp;#21551;&amp;#21160;&amp;#65289;&amp;#10;chkconfig --level 2345 httpd on&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;修改/etc/rc.local文件&lt;br&gt; 这个文件是，在系统启动的时候，所有服务都启动完，用户登录前，最后执行的文件，系统会执行该文件里的所有命令。所以，只要将服务的启动命令（比如 &lt;code&gt;/etc/init.d/httpd start&lt;/code&gt;）写到这个文件里，服务就能自启动了。&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;修改&lt;code&gt;/etc/rc.local&lt;/code&gt;文件&lt;br&gt; 这个文件是，在系统启动的时候，所有服务都启动完，用户登录前，最后执行的文件，系统会执行该文件里的所有命令。所以，只要将服务的启动命令（比如 &lt;code&gt;/etc/init.d/httpd start&lt;/code&gt;）写到这个文件里，服务就能自启动了。&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;使用ntsysv命令管理自启动&lt;br&gt; 同样是Redhat系列专有。&lt;/li&gt;
+&lt;li&gt;使用&lt;code&gt;ntsysv&lt;/code&gt;命令管理自启动&lt;br&gt; 同样是Redhat系列专有。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&quot;源码包安装服务的自启动&quot;&gt;源码包安装服务的自启动&lt;/h3&gt;&lt;p&gt;通过修改/etc/rc.local文件来设置。&lt;/p&gt;
+&lt;h3 id=&quot;源码包安装服务的自启动&quot;&gt;源码包安装服务的自启动&lt;/h3&gt;&lt;p&gt;通过修改&lt;code&gt;/etc/rc.local&lt;/code&gt;文件来设置。&lt;/p&gt;
 &lt;p&gt;还可以通过下面的两种方式，让源码包服务被服务管理命令识别：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;通过软链接来完成&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ln -s /usr/local/apache2/bin/apachectl /etc/init.d/apache&amp;#10;``` &amp;#10;2. &amp;#35753;&amp;#28304;&amp;#30721;&amp;#21253;&amp;#30340;&amp;#26381;&amp;#21153;&amp;#33021;&amp;#34987;chkconfig&amp;#21629;&amp;#20196;&amp;#31649;&amp;#29702;&amp;#10;```bash&amp;#10;# 1. &amp;#20808;&amp;#25171;&amp;#24320;&amp;#33050;&amp;#26412;&amp;#25991;&amp;#20214;&amp;#10;vim /etc/init.d/apache&amp;#10;# 2. &amp;#28982;&amp;#21518;&amp;#22312;&amp;#33050;&amp;#26412;&amp;#30340;&amp;#24320;&amp;#22836;&amp;#21152;&amp;#20837;&amp;#19979;&amp;#38754;&amp;#20004;&amp;#34892;&amp;#20195;&amp;#30721;&amp;#65306;&amp;#10;# chkconfig: 35 86 76&amp;#10;# description: source package apache&amp;#10;# &amp;#27880;&amp;#65306;&amp;#19978;&amp;#38754;&amp;#30340;#&amp;#24182;&amp;#19981;&amp;#26159;&amp;#27880;&amp;#37322;&amp;#65292;&amp;#26159;&amp;#29992;&amp;#26469;&amp;#25351;&amp;#23450;httpd&amp;#26381;&amp;#21153;&amp;#33050;&amp;#26412;&amp;#21487;&amp;#20197;&amp;#34987;chkconfig&amp;#21629;&amp;#20196;&amp;#31649;&amp;#29702;&amp;#12290;&amp;#10;# &amp;#31532;&amp;#19968;&amp;#34892;&amp;#30340;&amp;#26684;&amp;#24335;&amp;#26159;&amp;#65306;chkconfig: &amp;#36816;&amp;#34892;&amp;#32423;&amp;#21035; &amp;#21551;&amp;#21160;&amp;#39034;&amp;#24207; &amp;#20851;&amp;#38381;&amp;#39034;&amp;#24207;&amp;#10;# &amp;#31532;&amp;#20108;&amp;#34892;&amp;#30340;&amp;#26684;&amp;#24335;&amp;#26159;&amp;#65306;description: &amp;#35828;&amp;#26126;&amp;#20869;&amp;#23481;&amp;#65288;&amp;#38543;&amp;#24847;&amp;#65289;&amp;#10;&amp;#10;# 3. &amp;#26368;&amp;#21518;&amp;#23558;apache&amp;#26381;&amp;#21153;&amp;#21152;&amp;#20837;chkconfig&amp;#21629;&amp;#20196;&amp;#36827;&amp;#34892;&amp;#31649;&amp;#29702;&amp;#10;chkconfig --add apache&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;li&gt;&lt;p&gt;通过软链接来完成&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ln -s /usr/local/apache2/bin/apachectl /etc/init.d/apache&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;让源码包的服务能被chkconfig命令管理&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 1. 先打开脚本文件&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vim /etc/init.d/apache&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 2. 然后在脚本的开头加入下面两行代码：&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# chkconfig: 35 86 76&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# description: source package apache&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 注：上面的#并不是注释，是用来指定httpd服务脚本可以被chkconfig命令管理。&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 第一行的格式是：chkconfig: 运行级别 启动顺序 关闭顺序&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 第二行的格式是：description: 说明内容（随意）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 3. 最后将apache服务加入chkconfig命令进行管理&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;chkconfig --add apache&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&quot;查看已开启的服务（推荐通过端口来判断）&quot;&gt;查看已开启的服务（推荐通过端口来判断）&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;查看系统运行了哪些进程，来判断启动了哪些服务。&lt;br&gt; ps aux&lt;br&gt; （但是系统中不光是服务会启动进程，一些系统程序也会启动进程，所以查出来的结果会比较多）&lt;/li&gt;
-&lt;li&gt;查看系统打开了哪些端口，来判断启动了哪些服务。&lt;br&gt; （/etc/service文件保存了所有常规端口对应的服务）&lt;br&gt; 列出系统中所有已启动的服务：&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;netstat -tlunp    &amp;#10;-t     &amp;#21015;&amp;#20986;tcp&amp;#25968;&amp;#25454;&amp;#10;-u    &amp;#21015;&amp;#20986;udp&amp;#25968;&amp;#25454;&amp;#10;-l     &amp;#21015;&amp;#20986;&amp;#27491;&amp;#22312;&amp;#30417;&amp;#21548;&amp;#30340;&amp;#32593;&amp;#32476;&amp;#26381;&amp;#21153;&amp;#65288;&amp;#19981;&amp;#21253;&amp;#21547;&amp;#24050;&amp;#32463;&amp;#36830;&amp;#25509;&amp;#30340;&amp;#32593;&amp;#32476;&amp;#26381;&amp;#21153;&amp;#65289;&amp;#10;-n    &amp;#29992;&amp;#31471;&amp;#21475;&amp;#21495;&amp;#26469;&amp;#26174;&amp;#31034;&amp;#26381;&amp;#21153;&amp;#65292;&amp;#32780;&amp;#19981;&amp;#26159;&amp;#29992;&amp;#26381;&amp;#21153;&amp;#21517;&amp;#10;-p    &amp;#21015;&amp;#20986;&amp;#35813;&amp;#26381;&amp;#21153;&amp;#30340;&amp;#36827;&amp;#31243;ID&amp;#65288;PID&amp;#65289;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;li&gt;&lt;p&gt;查看系统运行了哪些进程，来判断启动了哪些服务。&lt;br&gt; （但是系统中不光是服务会启动进程，一些系统程序也会启动进程，所以查出来的结果会比较多）&lt;br&gt; 列出系统中所有的进程：&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ps aux&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;/li&gt;
+&lt;li&gt;&lt;p&gt;查看系统打开了哪些端口，来判断启动了哪些服务。&lt;br&gt; （/etc/service文件保存了所有常规端口对应的服务）&lt;br&gt; 列出系统中所有已启动的服务：&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;netstat -tlunp    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-t     列出tcp数据&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-u    列出udp数据&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;operator&quot;&gt;-l&lt;/span&gt;     列出正在监听的网络服务（不包含已经连接的网络服务）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-n    用端口号来显示服务，而不是用服务名&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-p    列出该服务的进程ID（PID）&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
 &lt;/ol&gt;
 </content>
     
