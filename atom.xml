@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://qq2867234.github.io/"/>
-  <updated>2016-05-05T15:43:06.332Z</updated>
+  <updated>2016-05-05T15:50:26.184Z</updated>
   <id>http://qq2867234.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://qq2867234.github.io/2016/03/14/Linux-service-manager/"/>
     <id>http://qq2867234.github.io/2016/03/14/Linux-service-manager/</id>
     <published>2016-03-14T15:42:34.000Z</published>
-    <updated>2016-05-05T15:43:06.332Z</updated>
+    <updated>2016-05-05T15:50:26.184Z</updated>
     
     <content type="html">&lt;h3 id=&quot;系统运行级别&quot;&gt;系统运行级别&lt;/h3&gt;&lt;p&gt;Linux系统包含以下7个运行级别&lt;/p&gt;
 &lt;table&gt;
@@ -69,9 +69,10 @@
 &lt;/ol&gt;
 &lt;p&gt;其中，RPM安装的默认位置：&lt;br&gt;    /etc/init.d/           服务启动脚本（所有通过RPM包安装的服务的启动脚本，都在这个目录）&lt;br&gt;    /etc/sysconfig/     初始化环境配置文件位置&lt;br&gt;    /etc/                      配置文件位置&lt;br&gt;    /var/lib/                服务产生的数据放在这里&lt;br&gt;    /var/log/               日志&lt;/p&gt;
 &lt;h3 id=&quot;查看已安装的服务&quot;&gt;查看已安装的服务&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;查看RPM包安装的服务，以及服务是否自启动&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;chkconfig --list&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;结果（下面只列出其中一条）： &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;network &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:off &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:off &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;6&lt;/span&gt;:off&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;注：&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;-&lt;span class=&quot;number&quot;&gt;6&lt;/span&gt; 表示服务器的&lt;span class=&quot;number&quot;&gt;7&lt;/span&gt;个运行级别，on/off 表示系统处于指定级别下是否自动启动）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;``` &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;**设置服务的自启动**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;```bash&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;chkconfig --level &lt;span class=&quot;number&quot;&gt;2345&lt;/span&gt; httpd on&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;li&gt;查看RPM包安装的服务，以及服务是否自启动&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;chkconfig --list&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;结果（下面只列出其中一条）： &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;network &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:off &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:off &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;6&lt;/span&gt;:off&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;注：&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;-&lt;span class=&quot;number&quot;&gt;6&lt;/span&gt; 表示服务器的&lt;span class=&quot;number&quot;&gt;7&lt;/span&gt;个运行级别，on/off 表示系统处于指定级别下是否自动启动）&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;设置服务的自启动&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;chkconfig --level &lt;span class=&quot;number&quot;&gt;2345&lt;/span&gt; httpd on&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;ps：很多服务名称后面会加个d，比如httpd、mysqld。d是用来表示守护进程的意思。&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;源码包安装的服务，一般是/usr/local下。&lt;/li&gt;
@@ -80,9 +81,17 @@
 &lt;li&gt;/etc/init.d/serviceName start|stop|restart|status&lt;br&gt; 这是Linux系统标准的服务启动方式，推荐使用。&lt;/li&gt;
 &lt;li&gt;service serviceName start|stop|restart|status&lt;br&gt; 这是Redhat专有的命令。Redhat为了方便，单独开发的，只有redhat系列，才能使用这个命令，换一个linux版本，就不一定有了，所以最好不要太依赖这种方式。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&quot;启动源码包安装的服务&quot;&gt;启动源码包安装的服务&lt;/h3&gt;&lt;p&gt;使用绝对路径，调用启动脚本来启动。可以通过查看源码包的安装说明，查看启动脚本的方法。比如：&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/usr/&lt;span class=&quot;built_in&quot;&gt;local&lt;/span&gt;/apache2/bin/apachectl start|stop&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;``` &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;### RPM安装服务的自启动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;. chkconfig [--level 运行级别] [服务名] [on|off]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    比如要设置apache服务自启动，则使用下面的命令：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    chkconfig --level &lt;span class=&quot;number&quot;&gt;2345&lt;/span&gt; httpd on&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    （其中，--level &lt;span class=&quot;number&quot;&gt;2345&lt;/span&gt;为惯用写法。推荐使用这种方法来设置自启动）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;. 修改/etc/rc.local文件&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    这个文件是，在系统启动的时候，所有服务都启动完，用户登录前，最后执行的文件，系统会执行该文件里的所有命令。所以，只要将服务的启动命令（比如 /etc/init.d/httpd start）写到这个文件里，服务就能自启动了。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;. 使用ntsysv命令管理自启动&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    同样是Redhat系列专有。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;### 源码包安装服务的自启动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;通过修改/etc/rc.local文件来设置。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;还可以通过下面的两种方式，让源码包服务被服务管理命令识别：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;. 通过软链接来完成&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;ln -s /usr/local/apache2/bin/apachectl /etc/init.d/apache&lt;br&gt;``` &lt;/p&gt;
+&lt;h3 id=&quot;启动源码包安装的服务&quot;&gt;启动源码包安装的服务&lt;/h3&gt;&lt;p&gt;使用绝对路径，调用启动脚本来启动。可以通过查看源码包的安装说明，查看启动脚本的方法。比如：&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/usr/&lt;span class=&quot;built_in&quot;&gt;local&lt;/span&gt;/apache2/bin/apachectl start|stop&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;RPM安装服务的自启动&quot;&gt;RPM安装服务的自启动&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;chkconfig [–level 运行级别] [服务名] [on|off]&lt;br&gt; 比如要设置apache服务自启动，则使用下面的命令：&lt;br&gt; chkconfig –level 2345 httpd on&lt;br&gt; （其中，–level 2345为惯用写法。推荐使用这种方法来设置自启动）&lt;/li&gt;
+&lt;li&gt;修改/etc/rc.local文件&lt;br&gt; 这个文件是，在系统启动的时候，所有服务都启动完，用户登录前，最后执行的文件，系统会执行该文件里的所有命令。所以，只要将服务的启动命令（比如 /etc/init.d/httpd start）写到这个文件里，服务就能自启动了。&lt;/li&gt;
+&lt;li&gt;使用ntsysv命令管理自启动&lt;br&gt; 同样是Redhat系列专有。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;源码包安装服务的自启动&quot;&gt;源码包安装服务的自启动&lt;/h3&gt;&lt;p&gt;通过修改/etc/rc.local文件来设置。&lt;/p&gt;
+&lt;p&gt;还可以通过下面的两种方式，让源码包服务被服务管理命令识别：&lt;/p&gt;
 &lt;ol&gt;
+&lt;li&gt;通过软链接来完成&lt;pre&gt;&lt;code&gt;ln -s &lt;span class=&quot;regexp&quot;&gt;/usr/&lt;/span&gt;local&lt;span class=&quot;regexp&quot;&gt;/apache2/&lt;/span&gt;bin&lt;span class=&quot;regexp&quot;&gt;/apachectl /&lt;/span&gt;etc&lt;span class=&quot;regexp&quot;&gt;/init.d/&lt;/span&gt;apache
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;让源码包的服务能被chkconfig命令管理&lt;ol&gt;
 &lt;li&gt;vim /etc/init.d/apache&lt;br&gt; 在脚本的开头加入下面两行代码：&lt;h1 id=&quot;chkconfig:_35_86_76&quot;&gt;chkconfig: 35 86 76&lt;/h1&gt;&lt;h1 id=&quot;description:_source_package_apache&quot;&gt;description: source package apache&lt;/h1&gt; #上面的#并不是注释，用来指定httpd服务脚本可以被chkconfig命令管理。&lt;br&gt; #格式是： chkconfig: 运行级别 启动顺序 关闭顺序&lt;br&gt; #description是说明，内容随意&lt;/li&gt;
 &lt;li&gt;chkconfig –add apache&lt;br&gt; 将源码包apache加入chkconfig命令&lt;/li&gt;
