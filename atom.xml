@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://qq2867234.github.io/"/>
-  <updated>2016-05-05T15:50:26.184Z</updated>
+  <updated>2016-05-05T15:51:53.047Z</updated>
   <id>http://qq2867234.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://qq2867234.github.io/2016/03/14/Linux-service-manager/"/>
     <id>http://qq2867234.github.io/2016/03/14/Linux-service-manager/</id>
     <published>2016-03-14T15:42:34.000Z</published>
-    <updated>2016-05-05T15:50:26.184Z</updated>
+    <updated>2016-05-05T15:51:53.047Z</updated>
     
     <content type="html">&lt;h3 id=&quot;系统运行级别&quot;&gt;系统运行级别&lt;/h3&gt;&lt;p&gt;Linux系统包含以下7个运行级别&lt;/p&gt;
 &lt;table&gt;
@@ -72,8 +72,7 @@
 &lt;li&gt;查看RPM包安装的服务，以及服务是否自启动&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;chkconfig --list&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;结果（下面只列出其中一条）： &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;network &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:off &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:off &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;:on &lt;span class=&quot;number&quot;&gt;6&lt;/span&gt;:off&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;注：&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;-&lt;span class=&quot;number&quot;&gt;6&lt;/span&gt; 表示服务器的&lt;span class=&quot;number&quot;&gt;7&lt;/span&gt;个运行级别，on/off 表示系统处于指定级别下是否自动启动）&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;设置服务的自启动&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;chkconfig --level &lt;span class=&quot;number&quot;&gt;2345&lt;/span&gt; httpd on&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;ps：很多服务名称后面会加个d，比如httpd、mysqld。d是用来表示守护进程的意思。&lt;/p&gt;
+&lt;p&gt;PS：很多服务名称后面会加个d，比如httpd、mysqld。d是用来表示守护进程的意思。&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;源码包安装的服务，一般是/usr/local下。&lt;/li&gt;
 &lt;/ol&gt;

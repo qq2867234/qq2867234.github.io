@@ -97,7 +97,7 @@
 
 其中最常见的是级别3和5。
 要查看系统当前的运行级别，可以用 runlevel 命令，要修改运行级别">
-<meta property="og:updated_time" content="2016-05-05T15:50:26.184Z">
+<meta property="og:updated_time" content="2016-05-05T15:51:53.047Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux的服务管理">
 <meta name="twitter:description" content="系统运行级别Linux系统包含以下7个运行级别
@@ -263,8 +263,7 @@
 <li>查看RPM包安装的服务，以及服务是否自启动<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chkconfig --list</span><br><span class="line">结果（下面只列出其中一条）： </span><br><span class="line">network <span class="number">0</span>:off <span class="number">1</span>:off <span class="number">2</span>:on <span class="number">3</span>:on <span class="number">4</span>:on <span class="number">5</span>:on <span class="number">6</span>:off</span><br><span class="line">注：<span class="number">0</span>-<span class="number">6</span> 表示服务器的<span class="number">7</span>个运行级别，on/off 表示系统处于指定级别下是否自动启动）</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p><strong>设置服务的自启动</strong><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chkconfig --level <span class="number">2345</span> httpd on</span><br></pre></td></tr></table></figure></p>
-<p>ps：很多服务名称后面会加个d，比如httpd、mysqld。d是用来表示守护进程的意思。</p>
+<p>PS：很多服务名称后面会加个d，比如httpd、mysqld。d是用来表示守护进程的意思。</p>
 <ol>
 <li>源码包安装的服务，一般是/usr/local下。</li>
 </ol>
