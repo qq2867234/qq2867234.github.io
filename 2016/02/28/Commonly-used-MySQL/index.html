@@ -11,22 +11,19 @@
     
 
     
-    <meta name="description" content="下面的SQL会用到表：CREATE TABLE demo (&amp;#10;    id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;    name varchar(32) DEFAULT NULL,&amp;#10;    PRIMARY KEY (id)&amp;#10;) DEFAULT CHARSET=utf8;
-去重比如要根据name字段去重，并保留id最小的记录：
-方法一：先">
+    <meta name="description" content="在这里将工作中常用到的SQL做个记录，方便以后用到的时候查看。还会陆续补充…
+下面是demo表，本文的示例SQL一般都是基于这张表：CREATE TABLE demo (&amp;#10;    id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;    name varchar(32) DEFAULT NULL,&amp;#10;    PRIMARY KEY (id)&amp;#10;)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="工作中常用SQL记录">
 <meta property="og:url" content="http://qq2867234.github.io/2016/02/28/Commonly-used-MySQL/index.html">
 <meta property="og:site_name" content="Shadow">
-<meta property="og:description" content="下面的SQL会用到表：CREATE TABLE demo (&amp;#10;    id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;    name varchar(32) DEFAULT NULL,&amp;#10;    PRIMARY KEY (id)&amp;#10;) DEFAULT CHARSET=utf8;
-去重比如要根据name字段去重，并保留id最小的记录：
-方法一：先">
-<meta property="og:updated_time" content="2016-05-01T14:58:37.216Z">
+<meta property="og:description" content="在这里将工作中常用到的SQL做个记录，方便以后用到的时候查看。还会陆续补充…
+下面是demo表，本文的示例SQL一般都是基于这张表：CREATE TABLE demo (&amp;#10;    id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;    name varchar(32) DEFAULT NULL,&amp;#10;    PRIMARY KEY (id)&amp;#10;)">
+<meta property="og:updated_time" content="2016-05-05T13:05:37.009Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="工作中常用SQL记录">
-<meta name="twitter:description" content="下面的SQL会用到表：CREATE TABLE demo (&amp;#10;    id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;    name varchar(32) DEFAULT NULL,&amp;#10;    PRIMARY KEY (id)&amp;#10;) DEFAULT CHARSET=utf8;
-去重比如要根据name字段去重，并保留id最小的记录：
-方法一：先">
+<meta name="twitter:description" content="在这里将工作中常用到的SQL做个记录，方便以后用到的时候查看。还会陆续补充…
+下面是demo表，本文的示例SQL一般都是基于这张表：CREATE TABLE demo (&amp;#10;    id int(11) NOT NULL AUTO_INCREMENT,&amp;#10;    name varchar(32) DEFAULT NULL,&amp;#10;    PRIMARY KEY (id)&amp;#10;)">
 
     
     <link rel="alternative" href="/atom.xml" title="Shadow" type="application/atom+xml">
@@ -93,13 +90,14 @@
 		<a href="/about" title="Shadow" target="_blank" itemprop="author">Shadow</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-28T15:07:17.000Z" itemprop="datePublished"> 发表于 2016-02-28</time>
+    <time datetime="2016-02-28T14:33:25.000Z" itemprop="datePublished"> 发表于 2016-02-28</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<p>下面的SQL会用到表：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE demo (&#10;    id int(11) NOT NULL AUTO_INCREMENT,&#10;    name varchar(32) DEFAULT NULL,&#10;    PRIMARY KEY (id)&#10;) DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure></p>
+		<p>在这里将工作中常用到的SQL做个记录，方便以后用到的时候查看。还会陆续补充…</p>
+<p>下面是demo表，本文的示例SQL一般都是基于这张表：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE demo (&#10;    id int(11) NOT NULL AUTO_INCREMENT,&#10;    name varchar(32) DEFAULT NULL,&#10;    PRIMARY KEY (id)&#10;) DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure></p>
 <h3 id="去重">去重</h3><p>比如要根据name字段去重，并保留id最小的记录：</p>
 <p><strong>方法一：</strong><br>先在子查询中查询要保留的记录，然后在外层关联原表，删除与子查询结果中name相等，但是id不相等的记录：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DELETE t1 FROM demo t1, (&#10;    SELECT id, name FROM demo GROUP BY name&#10;) t2&#10;WHERE t1.name = t2.name AND t1.id &#60;&#62; t2.id;</span><br></pre></td></tr></table></figure></p>
 <p>上面的SQL，由于GROUP BY 的原理，在子查询中保留下来的是id最小的记录，所以在外层就把所有name相等但是id大的记录给删了。<br>如果想要保留id最大的记录，上面的方法就不适用了，需要用下面的写法，先按照需要的顺序排好序，再GROUP BY，才能在子查询中保留id最大的记录：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DELETE t1 FROM demo t1, (&#10;    SELECT id, name FROM (&#10;        SELECT id, name FROM demo ORDER BY id DESC&#10;    ) t GROUP BY name&#10;) t2&#10;WHERE t1.name = t2.name AND t1.id &#60;&#62; t2.id;</span><br></pre></td></tr></table></figure></p>
@@ -122,14 +120,119 @@
 <p>（注：如果位置pos是负数 如-5 则是从后倒数，到字符串结束或指定截取的长度） </p>
 <p><strong>按分隔符截取字符串</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SUBSTRING_INDEX(str, delim, count)</span><br></pre></td></tr></table></figure></p>
 <p>说明：substring_index（被截取字段，分隔符，分隔符出现的次数）<br>（注：如果“分隔符出现的次数”是负数，如-1，则分隔符从末尾开始倒数，截取到字符串结束）<br>示例：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT SUBSTRING_INDEX(&#34;demo(hello)(world)demo&#34;, &#39;(&#39;, 1);&#10;&#32467;&#26524;&#65306;demo&#65288;&#34920;&#31034;&#20174;&#22836;&#24320;&#22987;&#25130;&#21462;&#23383;&#31526;&#20018;&#65292;&#30452;&#21040;&#21040;&#31532;1&#20010;&#20998;&#38548;&#31526;&#39;(&#39;&#20026;&#27490;&#65292;&#25152;&#20197;&#32467;&#26524;&#26159;demo&#65289;&#10;SELECT SUBSTRING_INDEX(&#34;demo(hello)(world)demo&#34;, &#39;(&#39;, 2);&#10;&#32467;&#26524;&#65306;demo(hello)&#10;SELECT SUBSTRING_INDEX(&#34;demo(hello)(world)demo&#34;, &#39;(&#39;, -1);&#10;&#32467;&#26524;&#65306;world)demo&#65288;&#34920;&#31034;&#20174;&#22836;&#24320;&#22987;&#25130;&#21462;&#23383;&#31526;&#20018;&#65292;&#30452;&#21040;&#21040;&#31532;1&#20010;&#20998;&#38548;&#31526;&#39;(&#39;&#20026;&#27490;&#65292;&#25152;&#20197;&#32467;&#26524;&#26159;demo&#65289;&#10;SELECT SUBSTRING_INDEX(&#34;demo(hello)(world)demo&#34;, &#39;(&#39;, -2);&#10;&#32467;&#26524;&#65306;hello)(world)demo</span><br></pre></td></tr></table></figure></p>
-<p>###提取字符串括号内的子串<br>比如一个字符串：金泉时代广场(保利金泉)，想要提起取括号内的“保利金泉”，用下面的SQL即可：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#19981;&#20445;&#30041;&#25324;&#21495;&#65306;&#10;LEFT(RIGHT(name, CHAR_LENGTH(name)-LOCATE(&#39;(&#39;,name)) ,LOCATE(&#39;)&#39;,RIGHT(name, CHAR_LENGTH(name)-LOCATE(&#39;(&#39;,name) - 1)))&#10;&#20445;&#30041;&#25324;&#21495;&#65306;&#10;LEFT(RIGHT(name, CHAR_LENGTH(name)-LOCATE(&#39;(&#39;,name) + 1) ,LOCATE(&#39;)&#39;,RIGHT(name, CHAR_LENGTH(name)-LOCATE(&#39;(&#39;,name) + 1)))</span><br></pre></td></tr></table></figure></p>
+<h3 id="提取字符串括号内的子串">提取字符串括号内的子串</h3><p>比如一个字符串：金泉时代广场(保利金泉)，想要提起取括号内的“保利金泉”，用下面的SQL即可：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#19981;&#20445;&#30041;&#25324;&#21495;&#65306;&#10;LEFT(RIGHT(name, CHAR_LENGTH(name)-LOCATE(&#39;(&#39;,name)) ,LOCATE(&#39;)&#39;,RIGHT(name, CHAR_LENGTH(name)-LOCATE(&#39;(&#39;,name) - 1)))&#10;&#20445;&#30041;&#25324;&#21495;&#65306;&#10;LEFT(RIGHT(name, CHAR_LENGTH(name)-LOCATE(&#39;(&#39;,name) + 1) ,LOCATE(&#39;)&#39;,RIGHT(name, CHAR_LENGTH(name)-LOCATE(&#39;(&#39;,name) + 1)))</span><br></pre></td></tr></table></figure></p>
 <h3 id="计算两点的直线距离">计算两点的直线距离</h3><p>假设有两个点，分别来自表a(longitude, latitude)和表b(longitude, latitude)，则两点的距离公式为：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">round(12742000*asin(sqrt(pow(sin((a.latitude-b.latitude)*0.017453)/2,2)+cos(a.latitude*0.017453)*cos(b.latitude*0.017453)*pow(sin((a.longitude-b.longitude)*0.017453)/2,2))))</span><br></pre></td></tr></table></figure></p>
-<p>说明：上面的SQL中，表a的经纬度</p>
 <h3 id="将分组内某字段的值进行串联">将分组内某字段的值进行串联</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT GROUP_CONCAT(id ORDER BY id DESC) FROM demo GROUP BY name;</span><br></pre></td></tr></table></figure>
-<h3 id="行列转换">行列转换</h3><p><strong>列转行</strong><br>这里需要用到一张序列表，只有一个id字段，保存1-2-3-…-n的一个序列，n的大小视情况而定，这里让n为100。<br>假设有下面一行记录：<br>|  id  |   name    |<br>| :—:| :——-: |<br>|  1   |  a,b,c,d  |<br>要将其转换为下面的多行记录：<br>|  id  |  name  |<br>| :—:| :—-: |<br>|  1   |    a   |<br>|  1   |    b   |<br>|  1   |    c   |<br>|  1   |    d   |</p>
+<h3 id="行列转换">行列转换</h3><p><strong>列转行</strong><br>这里需要用到一张序列表，只有一个id字段，保存1-2-3-…-n的一个序列，n的大小视情况而定，这里让n为100。<br>假设有下面一行记录：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">id</th>
+<th style="text-align:center">name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">a,b,c,d</td>
+</tr>
+</tbody>
+</table>
+<p>要将其转换为下面的多行记录：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">id</th>
+<th style="text-align:center">name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">a</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">b</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">c</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">d</td>
+</tr>
+</tbody>
+</table>
 <p>通过下面的SQL即可完成：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT b.id,&#10;    REPLACE(SUBSTRING(SUBSTRING_INDEX(name,&#39;,&#39;,a.id),CHARACTER_LENGTH(SUBSTRING_INDEX(name,&#39;,&#39;,a.id-1))+1),&#39;,&#39;,&#39;&#39;) name&#10;FROM tb_sequence a&#10;CROSS JOIN (&#10;    SELECT id, CONCAT(name,&#39;,&#39;) name, LENGTH(name)-LENGTH(REPLACE(name, &#39;,&#39;, &#39;&#39;))+1 size&#10;    FROM demo b&#10;) b ON a.id &#60;= b.size;</span><br></pre></td></tr></table></figure></p>
-<p><strong>行转列</strong><br>使用sum(case when … then … end) as … 来完成：<br>假设有下面多行记录：<br>|  year  |  month | price |<br>| :—–:| :—-: | :—: |<br>|  2016  |   1    |  1000 |<br>|  2016  |   2    |  2000 |<br>|  2016  |   3    |  3000 |<br>|  2016  |   4    |  4000 |<br>|  2016  |   5    |  5000 |<br>|  2016  |   6    |  6000 |</p>
-<p>要将其转换为下面的单行记录：<br>|  月份  | 2016年1月 | 2016年2月 | 2016年3月 | 2016年4月 | 2016年5月 | 2016年6月 |<br>| :—-:| :—–: | :—–: | :—–: | :—-: | :—-: | :—-: |<br>| 销售额 |  1000   |  2000   |  3000   |  4000  |  5000  |  6000  |</p>
+<p><strong>行转列</strong><br>使用sum(case when … then … end) as … 来完成：<br>假设有下面多行记录：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">year</th>
+<th style="text-align:center">month</th>
+<th style="text-align:center">price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">2016</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1000</td>
+</tr>
+<tr>
+<td style="text-align:center">2016</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">2000</td>
+</tr>
+<tr>
+<td style="text-align:center">2016</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3000</td>
+</tr>
+<tr>
+<td style="text-align:center">2016</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4000</td>
+</tr>
+<tr>
+<td style="text-align:center">2016</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">5000</td>
+</tr>
+<tr>
+<td style="text-align:center">2016</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">6000</td>
+</tr>
+</tbody>
+</table>
+<p>要将其转换为下面的单行记录：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">月份</th>
+<th style="text-align:center">2016年1月</th>
+<th style="text-align:center">2016年2月</th>
+<th style="text-align:center">2016年3月</th>
+<th style="text-align:center">2016年4月</th>
+<th style="text-align:center">2016年5月</th>
+<th style="text-align:center">2016年6月</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">销售额</td>
+<td style="text-align:center">1000</td>
+<td style="text-align:center">2000</td>
+<td style="text-align:center">3000</td>
+<td style="text-align:center">4000</td>
+<td style="text-align:center">5000</td>
+<td style="text-align:center">6000</td>
+</tr>
+</tbody>
+</table>
 <p>通过下面的SQL即可完成：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT &#39;&#38144;&#21806;&#39069;&#39; &#26376;&#20221; ,&#10;    SUM(CASE WHEN month=1 THEN price END) AS &#39;1&#26376;&#39;,&#10;    SUM(CASE WHEN month=2 THEN price END) AS &#39;2&#26376;&#39;,&#10;    SUM(CASE WHEN month=3 THEN price END) AS &#39;3&#26376;&#39;,&#10;    SUM(CASE WHEN month=4 THEN price END) AS &#39;4&#26376;&#39;,&#10;    SUM(CASE WHEN month=5 THEN price END) AS &#39;5&#26376;&#39;,&#10;    SUM(CASE WHEN month=6 THEN price END) AS &#39;6&#26376;&#39;&#10;FROM demo;</span><br></pre></td></tr></table></figure></p>
 <h3 id="分组选择最大值">分组选择最大值</h3><p>下面的SQL要实现的功能：保留名字重复记录中id最大的记录</p>
 <ul>
@@ -144,7 +247,89 @@
 </ul>
 </li>
 </ul>
-<h3 id="分组选择TopN">分组选择TopN</h3><p>有如下数据：<br>|   id  |   rid |  price  |<br>| :—: | :—-:| :—–: |<br>|   1   |   1   |   4500  |<br>|   2   |   1   |   4500  |<br>|   3   |   1   |   4100  |<br>|   4   |   1   |   4000  |<br>|   5   |   1   |   4000  |<br>|   6   |   1   |   4300  |<br>|   7   |   1   |   4200  |<br>|   8   |   2   |   4000  |<br>|   9   |   2   |   4500  |<br>|  10   |   2   |   3500  |<br>|  11   |   2   |   3800  |<br>|  12   |   2   |   3300  |<br>|  13   |   2   |   4400  |<br>|  14   |   2   |   3000  |<br>要查询每个rid下，price最高的前5条记录，下面是两种实现方式：</p>
+<h3 id="分组选择TopN">分组选择TopN</h3><p>有如下数据：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">id</th>
+<th style="text-align:center">rid</th>
+<th style="text-align:center">price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">4500</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">4500</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">4100</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">4000</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">4000</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">4300</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">4200</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">4000</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">4500</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3500</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3800</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3300</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">4400</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3000</td>
+</tr>
+</tbody>
+</table>
+<p>要查询每个rid下，price最高的前5条记录，下面是两种实现方式：</p>
 <ul>
 <li><p>利用子查询对记录进行编号<br>原理是扫描所有行，然后利用子查询，对于每一行，再次查询相同表，根据指定的排序条件查询比当前行price大的记录总数，作为该记录的排名。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT rid, price, cnt FROM (&#10;    SELECT id, rid, price,&#10;        (SELECT count(*) FROM demo b WHERE a.rid = b.rid &#10;            AND (a.price &#60; b.price OR (a.price = b.price AND a.id &#60; b.id) )) cnt&#10;    FROM demo&#10;) t&#10;WHERE t.cnt &#60; 5&#10;ORDER BY rid, cnt;</span><br></pre></td></tr></table></figure>
@@ -219,7 +404,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#去重"><span class="toc-number">1.</span> <span class="toc-text">去重</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日期时间处理"><span class="toc-number">2.</span> <span class="toc-text">日期时间处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串处理"><span class="toc-number">3.</span> <span class="toc-text">字符串处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算两点的直线距离"><span class="toc-number">4.</span> <span class="toc-text">计算两点的直线距离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将分组内某字段的值进行串联"><span class="toc-number">5.</span> <span class="toc-text">将分组内某字段的值进行串联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行列转换"><span class="toc-number">6.</span> <span class="toc-text">行列转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组选择最大值"><span class="toc-number">7.</span> <span class="toc-text">分组选择最大值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组选择TopN"><span class="toc-number">8.</span> <span class="toc-text">分组选择TopN</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#去重"><span class="toc-number">1.</span> <span class="toc-text">去重</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日期时间处理"><span class="toc-number">2.</span> <span class="toc-text">日期时间处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串处理"><span class="toc-number">3.</span> <span class="toc-text">字符串处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提取字符串括号内的子串"><span class="toc-number">4.</span> <span class="toc-text">提取字符串括号内的子串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算两点的直线距离"><span class="toc-number">5.</span> <span class="toc-text">计算两点的直线距离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将分组内某字段的值进行串联"><span class="toc-number">6.</span> <span class="toc-text">将分组内某字段的值进行串联</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行列转换"><span class="toc-number">7.</span> <span class="toc-text">行列转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组选择最大值"><span class="toc-number">8.</span> <span class="toc-text">分组选择最大值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组选择TopN"><span class="toc-number">9.</span> <span class="toc-text">分组选择TopN</span></a></li></ol>
  
   </div>
 
