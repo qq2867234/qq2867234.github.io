@@ -11,26 +11,20 @@
     
 
     
-    <meta name="description" content="索引是存储引擎用于高效获取数据的一种数据结构，索引其实就是一种数据结构。索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段。
-索引基础要理解索引是如何工作，最简单的方法就是去看一本书的目录：如果想在一本书中找到特定的章节，我们不会去翻阅整本书来找出这个章节，这样效率很低，我们肯定会先看目录，找到对应的页码，然后直接翻到指定页码。
-MySQL的存储引擎也是用类似的方法使用索引：先在索引">
+    <meta name="description" content="索引是存储引擎用于高效获取数据的一种数据结构，索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段之一。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="创建高性能的索引">
 <meta property="og:url" content="http://qq2867234.github.io/2016/02/24/Create-high-performance-index/index.html">
 <meta property="og:site_name" content="Shadow">
-<meta property="og:description" content="索引是存储引擎用于高效获取数据的一种数据结构，索引其实就是一种数据结构。索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段。
-索引基础要理解索引是如何工作，最简单的方法就是去看一本书的目录：如果想在一本书中找到特定的章节，我们不会去翻阅整本书来找出这个章节，这样效率很低，我们肯定会先看目录，找到对应的页码，然后直接翻到指定页码。
-MySQL的存储引擎也是用类似的方法使用索引：先在索引">
+<meta property="og:description" content="索引是存储引擎用于高效获取数据的一种数据结构，索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段之一。">
 <meta property="og:image" content="http://7xtdiw.com1.z0.glb.clouddn.com/create-high-performance-index-1.png">
 <meta property="og:image" content="http://7xtdiw.com1.z0.glb.clouddn.com/create-high-performance-index-2.png">
 <meta property="og:image" content="http://7xtdiw.com1.z0.glb.clouddn.com/create-high-performance-index-3.png">
 <meta property="og:image" content="http://7xtdiw.com2.z0.glb.clouddn.com/create-high-performance-index-4.png">
-<meta property="og:updated_time" content="2016-05-11T11:05:42.981Z">
+<meta property="og:updated_time" content="2016-05-12T05:35:55.771Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建高性能的索引">
-<meta name="twitter:description" content="索引是存储引擎用于高效获取数据的一种数据结构，索引其实就是一种数据结构。索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段。
-索引基础要理解索引是如何工作，最简单的方法就是去看一本书的目录：如果想在一本书中找到特定的章节，我们不会去翻阅整本书来找出这个章节，这样效率很低，我们肯定会先看目录，找到对应的页码，然后直接翻到指定页码。
-MySQL的存储引擎也是用类似的方法使用索引：先在索引">
+<meta name="twitter:description" content="索引是存储引擎用于高效获取数据的一种数据结构，索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段之一。">
 
     
     <link rel="alternative" href="/atom.xml" title="Shadow" type="application/atom+xml">
@@ -103,7 +97,7 @@ MySQL的存储引擎也是用类似的方法使用索引：先在索引">
 </header>
 	<div class="article-content">
 		
-		<p>索引是存储引擎用于<strong>高效获取数据</strong>的一种<strong>数据结构</strong>，索引其实就是一种数据结构。索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段。</p>
+		<p>索引是存储引擎用于<strong>高效获取数据</strong>的一种<strong>数据结构</strong>，索引其实就是一种数据结构。索引对于良好的性能非常关键，索引优化是对查询性能优化最有效的手段之一。</p>
 <h2 id="索引基础">索引基础</h2><p>要理解索引是如何工作，最简单的方法就是去看一本书的目录：如果想在一本书中找到特定的章节，我们不会去翻阅整本书来找出这个章节，这样效率很低，我们肯定会先看目录，找到对应的页码，然后直接翻到指定页码。</p>
 <p>MySQL的存储引擎也是用类似的方法使用索引：先在索引中找到对应的值，然后根据匹配的索引记录找到对应的数据行。</p>
 <p>索引可以包含一个或多个列。MySQL只能高效的使用索引的<strong>最左前缀列</strong>，所以当索引包含多个列的时候，列的顺序十分重要。</p>

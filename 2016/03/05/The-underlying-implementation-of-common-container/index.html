@@ -11,35 +11,17 @@
     
 
     
-    <meta name="description" content="容器概念容器就是我们常说的集合，那为什么要有一个新的名称呢？因为，Java的类库中使用了Collection来指代该类库的一个特殊子集，而Collection的中文又有集合的意思，所以为了避免混淆，使用了范围更广的术语“容器”来称呼。
-Java容器类的用途是“保存对象”，包含两大类别：
-
-Collection：保存一个独立元素的序列。
-Map：保存一组成对的“键值对”。
-
-但是我们一般会说有4种容">
+    <meta name="description" content="本文对Java常用容器类的源码进行了分析，加深对容器类底层实现原理的理解，从而能够在不同场景中选择合适的容器类。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java常用容器的实现原理">
 <meta property="og:url" content="http://qq2867234.github.io/2016/03/05/The-underlying-implementation-of-common-container/index.html">
 <meta property="og:site_name" content="Shadow">
-<meta property="og:description" content="容器概念容器就是我们常说的集合，那为什么要有一个新的名称呢？因为，Java的类库中使用了Collection来指代该类库的一个特殊子集，而Collection的中文又有集合的意思，所以为了避免混淆，使用了范围更广的术语“容器”来称呼。
-Java容器类的用途是“保存对象”，包含两大类别：
-
-Collection：保存一个独立元素的序列。
-Map：保存一组成对的“键值对”。
-
-但是我们一般会说有4种容">
+<meta property="og:description" content="本文对Java常用容器类的源码进行了分析，加深对容器类底层实现原理的理解，从而能够在不同场景中选择合适的容器类。">
 <meta property="og:image" content="http://7xtdiw.com1.z0.glb.clouddn.com/Java-Container.png">
-<meta property="og:updated_time" content="2016-04-28T17:05:44.310Z">
+<meta property="og:updated_time" content="2016-05-12T05:42:10.076Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java常用容器的实现原理">
-<meta name="twitter:description" content="容器概念容器就是我们常说的集合，那为什么要有一个新的名称呢？因为，Java的类库中使用了Collection来指代该类库的一个特殊子集，而Collection的中文又有集合的意思，所以为了避免混淆，使用了范围更广的术语“容器”来称呼。
-Java容器类的用途是“保存对象”，包含两大类别：
-
-Collection：保存一个独立元素的序列。
-Map：保存一组成对的“键值对”。
-
-但是我们一般会说有4种容">
+<meta name="twitter:description" content="本文对Java常用容器类的源码进行了分析，加深对容器类底层实现原理的理解，从而能够在不同场景中选择合适的容器类。">
 
     
     <link rel="alternative" href="/atom.xml" title="Shadow" type="application/atom+xml">
